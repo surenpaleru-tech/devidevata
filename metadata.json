@@ -1,0 +1,6 @@
+{
+  "name": "DeviDevata",
+  "description": "Indian Gods Gallery, Mythology LLM AI Chat, Puja and Stotrams, Live Festival Calendar, and Temple Info with offline caching.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

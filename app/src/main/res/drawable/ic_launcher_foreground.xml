@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Base deepam holder (Symmetrical Spiritual Oil Lamp Bowl in Gold-Saffron) -->
+    <path
+        android:fillColor="#FFD54F"
+        android:pathData="M54,48 C68,48 76,56 76,66 C76,76 66,84 54,84 C42,84 32,76 32,66 C32,56 40,48 54,48 Z" />
+
+    <!-- Innermost oil reservoir indentation -->
+    <path
+        android:fillColor="#FF8F00"
+        android:pathData="M54,54 C63,54 69,60 69,66 C69,72 62,77 54,77 C46,77 39,72 39,66 C39,60 45,54 54,54 Z" />
+
+    <!-- Upward rising holy Agni spiritual flame -->
+    <path
+        android:fillColor="#FF3D00"
+        android:pathData="M54,20 C54,20 63,33 63,44 C63,49 59,53 54,53 C49,53 45,49 45,44 C45,33 54,20 54,20 Z" />
+
+    <!-- Outer glowing spiritual halo frame ring (Subtle elegant line) -->
+    <path
+        android:strokeColor="#FFE082"
+        android:strokeWidth="2"
+        android:fillColor="#00000000"
+        android:pathData="M54,12 A42,42 0 1 0 54,96 A42,42 0 1 0 54,12" />
+        
+</vector>
