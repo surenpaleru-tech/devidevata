@@ -9,12 +9,15 @@ import com.example.data.api.GenerateContentRequest
 import com.example.data.api.Part
 import com.example.data.api.RetrofitClient
 import com.example.data.api.ServerConfig
+import com.example.data.api.LocalLanguageConfig
 import com.example.data.database.DivineDao
 import com.example.data.database.Festival
 import com.example.data.database.GodCategory
 import com.example.data.database.GodImage
 import com.example.data.database.StotramPuja
 import com.example.data.database.TempleInfo
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -619,6 +622,9 @@ class DivineRepository(
 
     // --- Pull and store language-specific Stotrams/Aartis/Mantras ---
     suspend fun syncStotramsByLanguage(serverUrl: String, language: String): Boolean = withContext(Dispatchers.IO) {
+        // Pre-load local asset-based dynamic localization immediately for instant offline-ready response!
+        val localLoaded = loadLanguageDataFromAssets(language)
+        
         try {
             Log.d("DivineRepository", "Selective Sync: Fetching stotrams for language $language from $serverUrl")
             val langCode = language.lowercase(Locale.getDefault())
@@ -813,5 +819,83 @@ class DivineRepository(
             )
         )
         divineDao.insertStotrams(list)
+    }
+
+    // --- Dynamic Asset-Driven Localization Loader ---
+    suspend fun loadLanguageDataFromAssets(language: String): Boolean = withContext(Dispatchers.IO) {
+        try {
+            val normalizedLang = language.lowercase(Locale.ROOT)
+            val fileName = "localization/$normalizedLang.json"
+            Log.d("DivineRepository", "Loading dynamic localization asset: $fileName")
+            
+            val jsonString = try {
+                context.assets.open(fileName).bufferedReader().use { it.readText() }
+            } catch (ex: Exception) {
+                Log.w("DivineRepository", "Localization file $fileName not found, trying English fallback")
+                try {
+                    context.assets.open("localization/english.json").bufferedReader().use { it.readText() }
+                } catch (e: Exception) {
+                    Log.e("DivineRepository", "Fallback english.json failed to read", e)
+                    return@withContext false
+                }
+            }
+            
+            val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+            val adapter = moshi.adapter(LocalLanguageConfig::class.java)
+            val config = adapter.fromJson(jsonString)
+            
+            if (config != null) {
+                if (config.stotrams.isNotEmpty()) {
+                    val mappedStotrams = config.stotrams.map {
+                        StotramPuja(
+                            id = it.id,
+                            categoryId = it.categoryId,
+                            type = it.type,
+                            title = it.title,
+                            sanskritText = it.sanskritText,
+                            translation = it.translation,
+                            benefits = it.benefits,
+                            language = language
+                        )
+                    }
+                    divineDao.insertStotrams(mappedStotrams)
+                }
+                
+                if (config.festivals.isNotEmpty()) {
+                    val mappedFestivals = config.festivals.map {
+                        Festival(
+                            id = it.id,
+                            title = it.title,
+                            dateStr = it.dateStr,
+                            dayOfWeek = it.dayOfWeek,
+                            Month = it.Month,
+                            tithi = it.tithi,
+                            nakshatra = it.nakshatra,
+                            deityCategoryId = it.deityCategoryId,
+                            description = it.description,
+                            rituals = it.rituals,
+                            language = language
+                        )
+                    }
+                    divineDao.insertFestivals(mappedFestivals)
+                }
+                Log.d("DivineRepository", "Successfully synchronized dynamic cached database from asset for $language!")
+                true
+            } else {
+                false
+            }
+        } catch (e: Exception) {
+            Log.e("DivineRepository", "Failed loading dynamic asset localized config for $language", e)
+            false
+        }
+    }
+
+    // --- Dynamic Content Addition ---
+    suspend fun addCustomStotram(stotram: StotramPuja) = withContext(Dispatchers.IO) {
+        divineDao.insertStotrams(listOf(stotram))
+    }
+
+    suspend fun addCustomFestival(festival: Festival) = withContext(Dispatchers.IO) {
+        divineDao.insertFestivals(listOf(festival))
     }
 }

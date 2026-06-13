@@ -1,0 +1,162 @@
+{
+  "festivals": [
+    {
+      "id": 351,
+      "title": "महाशिवरात्रि (Maha Shivaratri)",
+      "dateStr": "2026-02-15",
+      "dayOfWeek": "रविवार",
+      "Month": "फाल्गुन (कृष्ण चतुर्दशी)",
+      "tithi": "कृष्ण पक्ष चतुर्दशी",
+      "nakshatra": "शताभिषा",
+      "deityCategoryId": 2,
+      "description": "भगवतः शिवस्य अर्धनारीश्वररूपस्य पूजनं पार्वत्या सह कल्याणनिशीथकालपरिणयोत्सवः च।",
+      "rituals": "शिवलिङ्गस्य दुग्धमधुबिल्वपत्रैः अभिषेकः, नक्तव्रतं निशीथकालपूजा जागरणं च।"
+    },
+    {
+      "id": 352,
+      "title": "रामनवमी (Rama Navami)",
+      "dateStr": "2026-03-27",
+      "dayOfWeek": "शुक्रवार",
+      "Month": "चैत्र (शुक्ल नवमी)",
+      "tithi": "शुक्ल नवमी",
+      "nakshatra": "पुनर्वसु",
+      "deityCategoryId": 5,
+      "description": "अयोध्यायां धर्मसंस्थापनार्थं परब्रह्मणः श्रीरामचन्द्रस्य पावनमर्यादापुरुषोत्तमरूपेण अवतारदिनम्।",
+      "rituals": "रामनामकीर्तनं, रामायणपाठः, मन्दिरोत्सवेषु ध्वजारोहणं महाप्रसादवितरणं च।"
+    },
+    {
+      "id": 353,
+      "title": "कृष्णजन्माष्टमी (Krishna Janmashtami)",
+      "dateStr": "2026-09-03",
+      "dayOfWeek": "गुरुवार",
+      "Month": "भाद्रपद (कृष्ण अष्टमी)",
+      "tithi": "कृष्ण पक्ष अष्टमी",
+      "nakshatra": "रोहिणी",
+      "deityCategoryId": 3,
+      "description": "मथुराकारागारे कंसहन्तुः जगद्गुरोः योगेश्वरस्य श्रीकृष्णस्य दिव्यनिरीथकालावतारम्।",
+      "rituals": "अर्धरात्रिपर्यन्तम् उपवासः, बालमुकुन्दप्रतिमायाः दोलनं, भजनानि, गोपालकालडोलमहोत्सवः च।"
+    },
+    {
+      "id": 354,
+      "title": "गणेशचतुर्थी (Ganesh Chaturthi)",
+      "dateStr": "2026-09-15",
+      "dayOfWeek": "मङ्गलवार",
+      "Month": "भाद्रपद (शुक्ल चतुर्थी)",
+      "tithi": "शुक्ल पक्ष चतुर्थी",
+      "nakshatra": "हस्त",
+      "deityCategoryId": 1,
+      "description": "कैलाशात् पृथिव्यां विघ्नराजस्य गणेशस्य शुभरागमनमहोत्सवः जगतां बुद्धिप्रसादसिद्धिप्रदानार्थम्।",
+      "rituals": "पार्थिवगणेशमूर्तिप्रतिष्ठापनम्, २१ मोदकसमर्पणं, श्रीगणेशअथर्वशीर्षपाठः, विसर्जनं च।"
+    },
+    {
+      "id": 355,
+      "title": "विजयादशमी (Vijayadashami)",
+      "dateStr": "2026-10-20",
+      "dayOfWeek": "मङ्गलवार",
+      "Month": "आश्विन (शुक्ल दशमी)",
+      "tithi": "शुक्ल दशमी",
+      "nakshatra": "श्रवण",
+      "deityCategoryId": 4,
+      "description": "कालरात्र्या दुर्गादेव्या महिषासुरमर्दनं, श्रीरामचन्द्रेण दशशिरस्कस्य रावणस्य वधः च धर्मस्य विजयः।",
+      "rituals": "शमीपूजा, शस्त्रपूजा, रावणदहनदर्शनं, नवीनकार्यारम्भानुष्ठानं च।"
+    },
+    {
+      "id": 356,
+      "title": "गंगादशहरा (Ganga Dussehra)",
+      "dateStr": "2026-06-10",
+      "dayOfWeek": "बुधवार",
+      "Month": "ज्येष्ठ (शुक्ल दशमी)",
+      "tithi": "शुक्ल दशमी",
+      "nakshatra": "हस्त",
+      "deityCategoryId": 4,
+      "description": "दिव्यायाः गङ्गादेव्याः भगीरथप्रयत्नेन स्वर्गात् पातालगामितारिकात्वेन भूमावतरणदिवसः।",
+      "rituals": "गङ्गास्नानं, दीपदानं, गङ्गास्तोत्रपाठः, जलदानम् अन्यानि दानपुण्यकर्माणि च।"
+    },
+    {
+      "id": 358,
+      "title": "निर्जला एकादशी (Nirjala Ekadashi)",
+      "dateStr": "2026-06-25",
+      "dayOfWeek": "गुरुवार",
+      "Month": "ज्येष्ठ (शुक्ल एकादशी)",
+      "tithi": "शुक्ल पक्ष एकादशी",
+      "nakshatra": "स्वाती",
+      "deityCategoryId": 3,
+      "description": "संवत्सरस्य सर्वेषु एकादशीव्रतेषु परमपुण्यप्रदं जलवर्जितं कठोरतमं महाव्रतम्। वैकुण्ठपदप्राप्तिसाधनम्।",
+      "rituals": "समग्रं निर्जला-उपवासः, विष्णुसहस्रनामस्तोत्रपठनं, तृषार्तेभ्यः मधुमिश्रितशीतलजलपानवितरणम्।"
+    }
+  ],
+  "stotrams": [
+    {
+      "id": 301,
+      "categoryId": 1,
+      "type": "MANTRA",
+      "title": "Ganesha Mula Mantra",
+      "sanskritText": "ॐ गं गणपतये नमः ॥\n\nOm Gam Ganapataye Namaha.",
+      "translation": "My salutations and surrender to Lord Ganesha, the lord of all Ganas and ruler of wisdom.",
+      "benefits": "Removes any obstacles from educational, vocational, or marital pathways and grants supreme mental clarity."
+    },
+    {
+      "id": 302,
+      "categoryId": 1,
+      "type": "STOTRAM",
+      "title": "Sankata Nashana Ganesha Stotram",
+      "sanskritText": "प्रणम्य शिरसा देवं गौरीपुत्रं विनायकम् ।\nभक्तावासं स्मरेन्नित्यमायुष्कामार्थसिद्धये ॥ १ ॥\nप्रथमं वक्रतुण्डं च एकదन्तं द्वितीयकम् ।\nतृतीयं कृष्णपिङ्गाक्षं गजवक्त्रं चतुर्थकम् ॥ २ ॥",
+      "translation": "The sage Narada explains the twelve holy names of Ganesha. Reciting this morning and evening destroys all griefs and troubles deeply.",
+      "benefits": "Grants child to the childless, wealth to the needy, and liberation to the seekers."
+    },
+    {
+      "id": 303,
+      "categoryId": 2,
+      "type": "STOTRAM",
+      "title": "Shiva Panchakshara Stotram",
+      "sanskritText": "नागेन्द्रहाराय त्रिलोचनाय\nभस्माङ्गरागाय महेश्वराय ।\nनित्याय शुद्घाय दिगम्बराय\nतस्मै नकाराय नमः शिवाय ॥ १ ॥\n\nमन्दाकिनीसलिलचन्दनचर्चिताय\nनन्दीश्वरप्रमथनाथमहेश्वराय ।\nमन्दारपुष्पबहुपुष्पसुपूजिताय\nतस्मै मकाराय नमः शिवाय ॥ २ ॥",
+      "translation": "Salutations to Shiva, who wears the king of snakes as his garland, who is three-eyed, whose pure body is smeared with sacred ash, the sovereign Lord representing structural nature.",
+      "benefits": "Chanting this purified hymn bestows deep concentration, inner peace, and aligns the elements inside your yogic system."
+    },
+    {
+      "id": 304,
+      "categoryId": 3,
+      "type": "STOTRAM",
+      "title": "Madhurashtakam (Sweet Octet)",
+      "sanskritText": "अधरं मधुरं वदनं मधुरं नयनं मधुरं हसितं मधुरम् ।\nहृदयं मधुरं गमनं मधुरं मधुराधिपतेरखिलं मधुरम् ॥ १ ॥\n\nवचनं मधुरं चरितं मधुरं वसनं मधुरं वलितं मधुरम् ।\nचलितं मधुरं भ्रमितं मधुरं मधुराधिपतेरखिलं मधुरम् ॥ २ ॥",
+      "translation": "His lips are sweet, His face is sweet, His eyes are sweet, His smile is sweet. Everything about the King of Sweetness is utterly sweet!",
+      "benefits": "Attracts absolute pure cosmic love devotion (Bhakti), heals emotional trauma, and infuses sweet tranquility in the household."
+    },
+    {
+      "id": 305,
+      "categoryId": 4,
+      "type": "AARTI",
+      "title": "Ambe Tu Hai Jagdambe Aarti",
+      "sanskritText": "अम्बे तू है जगदम्बे काली, जय दुर्गे खप्पर वाली ।\nतेरे ही गुण गावें भारती, ओ मैया हम सब उतारे तेरी आरती ॥\n\nतेरे भक्त जनों पर मैया भीर पड़ी है भारी ।\nदानव दल पर टूट पड़ो मां करके सिंह सवारी ॥",
+      "translation": "O Mother Ambe! You are Goddess Kali, Victorious Durga who holds a trident and skull cup. All children of India sing your praise as we wave this light of worship.",
+      "benefits": "Destroys negative blockages, fills the mind with invincible strength, courage, and protects the yogi from dark intentions."
+    },
+    {
+      "id": 306,
+      "categoryId": 5,
+      "type": "STOTRAM",
+      "title": "Shree Ram Raksha Stotram",
+      "sanskritText": "चरितं रघुनाथस्य शतकोटि प्रविस्तरम् ।\nएकैकमक्षरं पुंसां महापातकनाशनम् ॥ १ ॥\n\nध्यात्वा नीलोत्पलश्यामं रामं राजीवलोचनम् ।\nजानकीलक्ष्मणोपेतं जटामुकुटमण्डितम् ॥ २ ॥",
+      "translation": "The story of Rama is detailed in billions of verses, yet every single word possesses the power to destroy the gravest sins.",
+      "benefits": "Surrounds the practitioner with an impenetrable shield of pure protection, wards off bad dreams, and clears dark obstacles."
+    },
+    {
+      "id": 307,
+      "categoryId": 2,
+      "type": "STOTRAM",
+      "title": "Shiva Tandava Stotram",
+      "sanskritText": "जटाटवीगलज्जलप्रवाहपावितस्थले\nगलेऽवलम्ब्य लम्बितां भुजङ्गतुङ्गमालिकाम् ।\nडमड्डमड्डमड्डमन्निनादवड्डमर्वयं\nचकार चण्डताण्डवं तनोतु नः शिवः शिवम् ॥ १ ॥",
+      "translation": "With his neck consecrated by the flow of water trickling from his forest of matted hair, wearing a lofty garland of serpents, and playing his damaru drum 'damat-damat', Shiva performs his dance of power.",
+      "benefits": "Increases vitality, removes planetary afflictions, improves deep voice projection and builds powerful cosmic magnetism."
+    },
+    {
+      "id": 308,
+      "categoryId": 3,
+      "type": "MANTRA",
+      "title": "Mahamantra Chanting",
+      "sanskritText": "हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे ।\nहरे राम हरे राम राम राम हरे हरे ॥",
+      "translation": "Praising the supreme pleasure potency of God (Hara) along with Lord Krishna and Lord Rama.",
+      "benefits": "Directly links your soul with absolute spiritual ecstasy, resolves existential anxiety, and purifies karmic cycles."
+    }
+  ]
+}

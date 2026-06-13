@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "Lord Ganesha",
+    "sanskritName": "श्री गणेश",
+    "title": "Remover of Obstacles & Lord of Beginnings",
+    "description": "Ganesha is the patron of wisdom, intellect, arts, and sciences. With his distinctive elephant head, he is revered first in all sacred Vedic rituals as the supreme remover of all physical and spiritual obstacles (Vighnaharta).",
+    "attributes": ["Wisdom", "Success", "Intellect", "New Beginnings"],
+    "mantra": "ॐ गं गणपतये नमः (Om Gam Ganapataye Namaha)",
+    "colorTheme": "#FF9933",
+    "iconography": "Elephant head representing intellect, large ears to listen to prayers, a potbelly representing the assimilation of the cosmos, holding sweet modaks (rewards of spiritual sadhana), and riding his humble vehicle, a mouse (mushika).",
+    "image": "https://images.unsplash.com/photo-1567591905623-fa5097475141?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    "id": 2,
+    "name": "Lord Shiva",
+    "sanskritName": "शिव",
+    "title": "The Supreme Yogi & Cosmic Destroyer",
+    "description": "Shiva is the Adiyogi (the first yogi) and the supreme transformer within the Trimurti framework. He is the master of dance (Nataraja), representing both creative cosmic rhythm and ultimate dissolution.",
+    "attributes": ["Asceticism", "Limitation Dissolution", "Meditation", "Divine Dance"],
+    "mantra": "ॐ नमः शिवाय (Om Namah Shivaya)",
+    "colorTheme": "#008080",
+    "iconography": "Smeared with sacred ash (vibhuti), third eye representing wisdom, crescent moon in his matted locks, the sacred river Ganga flowing from his head, wrapped in tiger skin, holding the trident (trishul) and damru, with the serpent Vasuki coiled around his neck.",
+    "image": "https://images.unsplash.com/photo-1616046229478-9901c5536a45?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    "id": 3,
+    "name": "Lord Vishnu",
+    "sanskritName": "विष्णु",
+    "title": "The Infinite Preserver & Cosmic Protector",
+    "description": "Vishnu is the supreme deity responsible for supporting, sustaining, and preserving the cosmic order (Dharma). He incarnates on Earth as various avataras (such as Rama and Krishna) whenever moral order is in peril.",
+    "attributes": ["Sustenance", "Cosmic Order", "Compassion", "Reincarnation"],
+    "mantra": "ॐ नमो भगवते वासुदेवाय (Om Namo Bhagavate Vasudevaya)",
+    "colorTheme": "#4169E1",
+    "iconography": "Four arms carrying the Sudarshana Chakra (universal disc), Panchajanya (conch shell representing the primodial sound Om), Kaumodaki (gada/mace), and Padma (lotus representing unblemished beauty). Resting upon the multi-headed serpent Sheshnag.",
+    "image": "https://images.unsplash.com/photo-1590073844006-33379778ae09?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    "id": 4,
+    "name": "Devi Durga",
+    "sanskritName": "दुर्गा",
+    "title": "The Invincible Warrior Mother",
+    "description": "Durga is the supreme active feminine energy (Shakti) representing the combined power of all divine forces. She is the mother warrior who vanquished the demon Mahishasura, restoring righteousness and cosmic harmony.",
+    "attributes": ["Strength", "Protection", "Feminine Power", "Victory"],
+    "mantra": "ॐ दुं दुर्गायै नमः (Om Dum Durgayei Namaha)",
+    "colorTheme": "#D2143A",
+    "iconography": "Riding a powerful lion, holding ten weapons gifted by the gods in her ten hands (including Shiva's trident, Vishnu's chakra, and Indra's thunderbolt), radiating a bright golden glow representing invincible courage.",
+    "image": "https://images.unsplash.com/photo-1609137144813-7d7bceda287a?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    "id": 5,
+    "name": "Devi Lakshmi",
+    "sanskritName": "लक्ष्मी",
+    "title": "Goddess of Abundance & Spiritual Wealth",
+    "description": "Lakshmi is the divine consort of Lord Vishnu, representing outer and inner wealth, prosperity, purity, and fortune. She bestows both physical abundance and spiritual enlightenment on sincere devotees.",
+    "attributes": ["Prosperity", "Wealth", "Purity", "Grace"],
+    "mantra": "ॐ श्रीं महालक्ष्म्यै नमः (Om Shreem Maha Lakshmyai Namaha)",
+    "colorTheme": "#FF1493",
+    "iconography": "Standing or sitting on a fully bloomed pink lotus, with gold coins showering from her open palms representing flow of cosmic grace, flanked by divine white elephants (gaja) pouring sacred water.",
+    "image": "https://images.unsplash.com/photo-1506157786151-b8491531f063?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    "id": 6,
+    "name": "Devi Saraswati",
+    "sanskritName": "सरस्वती",
+    "title": "Goddess of Wisdom, Music & Fine Arts",
+    "description": "Saraswati represents the free-flowing river of consciousness, speech, knowledge, wisdom, and fine arts. Sincere students, classical musicians, and philosophers worship her to gain absolute clarity of mind.",
+    "attributes": ["Knowledge", "Creativity", "Fine Arts", "Eloquence"],
+    "mantra": "ॐ ऐं सरस्वत्यै नमः (Om Eim Saraswatyai Namaha)",
+    "colorTheme": "#FFFFFF",
+    "iconography": "Clad in a pure, spotless white saree representing absolute purity of intellect, seated on a white rock or swan (hansa), holding the Veena (stringed musical instrument), a book (Vedas), and a crystal mala (concentration).",
+    "image": "https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    "id": 7,
+    "name": "Lord Krishna",
+    "sanskritName": "कृष्ण",
+    "title": "The Master of Love, Devotion & Ultimate Truth",
+    "description": "Krishna is the central avatar of Lord Vishnu, widely beloved for his divine teachings in the Bhagavad Gita. He represents pure bliss, cosmic playfulness (Lila), and is a guide of supreme wisdom.",
+    "attributes": ["Unconditional Love", "Supreme Wisdom", "Playfulness", "Divine Guidance"],
+    "mantra": "हरे कृष्ण हरे कृष्ण कृष्ण कृष्ण हरे हरे (Hare Krishna Mantra)",
+    "colorTheme": "#1E90FF",
+    "iconography": "Golden-dark blue skin representing infinite space, wearing a peacock feather in his crown, playing a melodious bamboo flute, frequently accompanied by cows, calves, and loving Gopis.",
+    "image": "https://images.unsplash.com/photo-1597113366853-fc19207ec7a7?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    "id": 8,
+    "name": "Lord Hanuman",
+    "sanskritName": "हनुमान",
+    "title": "The Embodiment of Devotion & Selfless Strength",
+    "description": "Hanuman is a great devotee of Lord Rama and an incarnation of Shiva's power (Rudra). He represents the absolute submission of the ego to absolute devotion, generating limitless strength, courage, and loyalty.",
+    "attributes": ["Devotion", "Humility", "Immense Strength", "Protection"],
+    "mantra": "ॐ हनुमते नमः (Om Hanumate Namaha)",
+    "colorTheme": "#FF4500",
+    "iconography": "Stout, powerful body holding a heavy golden Gada (mace) signifying strength, hands joined in profound prayer, sometimes tearing open his chest to reveal the images of Lord Rama and Devi Sita inside his heart.",
+    "image": "https://images.unsplash.com/photo-1582234327421-dfd1933ccf03?auto=format&fit=crop&q=80&w=600"
+  }
+]

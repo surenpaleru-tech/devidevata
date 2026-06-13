@@ -81,7 +81,8 @@ data class RemoteFestival(
     val nakshatra: String,
     val deityCategoryId: Int,
     val description: String,
-    val rituals: String
+    val rituals: String,
+    val language: String? = null
 )
 
 @JsonClass(generateAdapter = true)
@@ -92,6 +93,12 @@ data class SyncResponse(
     val stotrams: List<RemoteStotramPuja>,
     val temples: List<RemoteTempleInfo>,
     val festivals: List<RemoteFestival>
+)
+
+@JsonClass(generateAdapter = true)
+data class LocalLanguageConfig(
+    val festivals: List<RemoteFestival> = emptyList(),
+    val stotrams: List<RemoteStotramPuja> = emptyList()
 )
 
 // --- Gemini API Models (Retrofit-compatible) ---

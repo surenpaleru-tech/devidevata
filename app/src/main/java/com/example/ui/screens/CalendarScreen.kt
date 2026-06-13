@@ -6,6 +6,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -40,8 +42,11 @@ fun CalendarScreen(
     modifier: Modifier = Modifier
 ) {
     val festivals by viewModel.festivals.collectAsState()
+    val categories by viewModel.categories.collectAsState()
+    val selectedLanguage by viewModel.selectedLanguage.collectAsState()
     val panchang = remember { viewModel.getPanchangDetailsForToday() }
     var searchQuery by remember { mutableStateOf("") }
+    var showAddDialog by remember { mutableStateOf(false) }
     val notificationStatesByFestival = remember { mutableStateMapOf<Int, Boolean>() }
     
     val todayStr = remember {
@@ -760,7 +765,202 @@ fun CalendarScreen(
                 }
             }
         }
+
+        ExtendedFloatingActionButton(
+            onClick = { showAddDialog = true },
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(bottom = 24.dp, end = 24.dp)
+                .testTag("add_custom_festival_fab"),
+            containerColor = MaterialTheme.colorScheme.primaryContainer,
+            contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+            icon = { Icon(Icons.Default.Add, contentDescription = "Add Festival") },
+            text = { Text("Add Festival", fontWeight = FontWeight.Bold) }
+        )
+
+        if (showAddDialog) {
+            AddCustomFestivalDialog(
+                currentLanguage = selectedLanguage,
+                categories = categories,
+                onDismiss = { showAddDialog = false },
+                onAdd = { customFest ->
+                    viewModel.addCustomFestival(customFest)
+                    showAddDialog = false
+                }
+            )
+        }
     }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AddCustomFestivalDialog(
+    currentLanguage: String,
+    categories: List<com.example.data.database.GodCategory>,
+    onDismiss: () -> Unit,
+    onAdd: (com.example.data.database.Festival) -> Unit
+) {
+    var title by remember { mutableStateOf("") }
+    var dateStr by remember { mutableStateOf("") }
+    var dayOfWeek by remember { mutableStateOf("") }
+    var month by remember { mutableStateOf("") }
+    var tithi by remember { mutableStateOf("") }
+    var nakshatra by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
+    var rituals by remember { mutableStateOf("") }
+    
+    var selectedCategoryIndex by remember { mutableStateOf(0) }
+    var isCategoryDropdownExpanded by remember { mutableStateOf(false) }
+    
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(
+                "Add Custom Festival (${currentLanguage})",
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Serif
+                )
+            )
+        },
+        text = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                // Category Dropdown
+                if (categories.isNotEmpty()) {
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        OutlinedTextField(
+                            value = categories[selectedCategoryIndex].name,
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text("Associated Deity") },
+                            trailingIcon = {
+                                IconButton(onClick = { isCategoryDropdownExpanded = true }) {
+                                    Icon(Icons.Default.ArrowDropDown, contentDescription = "Deities")
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        DropdownMenu(
+                            expanded = isCategoryDropdownExpanded,
+                            onDismissRequest = { isCategoryDropdownExpanded = false }
+                        ) {
+                            categories.forEachIndexed { index, cat ->
+                                DropdownMenuItem(
+                                    text = { Text(cat.name) },
+                                    onClick = {
+                                        selectedCategoryIndex = index
+                                        isCategoryDropdownExpanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+                
+                OutlinedTextField(
+                    value = title,
+                    onValueChange = { title = it },
+                    label = { Text("Festival Title") },
+                    placeholder = { Text("e.g., Hanuman Jayanti") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                
+                OutlinedTextField(
+                    value = dateStr,
+                    onValueChange = { dateStr = it },
+                    label = { Text("Date (YYYY-MM-DD)") },
+                    placeholder = { Text("e.g., 2026-04-18") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                
+                OutlinedTextField(
+                    value = dayOfWeek,
+                    onValueChange = { dayOfWeek = it },
+                    label = { Text("Day of Week") },
+                    placeholder = { Text("e.g., Saturday") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                
+                OutlinedTextField(
+                    value = month,
+                    onValueChange = { month = it },
+                    label = { Text("Hindu Month") },
+                    placeholder = { Text("e.g., Chaitra (Shukla Purnima)") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                
+                OutlinedTextField(
+                    value = tithi,
+                    onValueChange = { tithi = it },
+                    label = { Text("Tithi") },
+                    placeholder = { Text("e.g., Shukla Purnima") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                
+                OutlinedTextField(
+                    value = nakshatra,
+                    onValueChange = { nakshatra = it },
+                    label = { Text("Nakshatra") },
+                    placeholder = { Text("e.g., Chitra") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                
+                OutlinedTextField(
+                    value = description,
+                    onValueChange = { description = it },
+                    label = { Text("Description") },
+                    placeholder = { Text("Spiritual details...") },
+                    minLines = 2,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                
+                OutlinedTextField(
+                    value = rituals,
+                    onValueChange = { rituals = it },
+                    label = { Text("Pujas & Rituals") },
+                    placeholder = { Text("Fast, read scriptures...") },
+                    minLines = 2,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    if (title.isNotBlank() && dateStr.isNotBlank()) {
+                        val assocCat = if (categories.isNotEmpty()) categories[selectedCategoryIndex].id else 1
+                        val newFest = com.example.data.database.Festival(
+                            id = (1000..99999).random(),
+                            title = title,
+                            dateStr = dateStr,
+                            dayOfWeek = dayOfWeek,
+                            Month = month,
+                            tithi = tithi,
+                            nakshatra = nakshatra,
+                            deityCategoryId = assocCat,
+                            description = description,
+                            rituals = rituals,
+                            language = currentLanguage
+                        )
+                        onAdd(newFest)
+                    }
+                },
+                enabled = title.isNotBlank() && dateStr.isNotEmpty()
+            ) {
+                Text("Add Festival")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Cancel")
+            }
+        }
+    )
 }
 
 @Composable

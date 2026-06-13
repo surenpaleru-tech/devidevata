@@ -11,11 +11,13 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,6 +42,9 @@ fun FullBannerAdView(
 ) {
     val context = LocalContext.current
     var isError by remember { mutableStateOf(!AdConfig.ADS_ENABLED) }
+    var isClosed by remember { mutableStateOf(false) }
+
+    if (isClosed) return
 
     Box(
         modifier = modifier
@@ -49,9 +54,26 @@ fun FullBannerAdView(
             .background(MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.25f)),
         contentAlignment = Alignment.Center
     ) {
+        // Dismiss close button for standard inline ads
+        IconButton(
+            onClick = { isClosed = true },
+            modifier = Modifier
+                .align(Alignment.TopEnd)
+                .padding(4.dp)
+                .size(24.dp)
+                .testTag("close_banner_ad_btn")
+        ) {
+            Icon(
+                imageVector = Icons.Default.Close,
+                contentDescription = "Close Ad",
+                tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                modifier = Modifier.size(16.dp)
+            )
+        }
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(8.dp)
+            modifier = Modifier.padding(top = 16.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
         ) {
             Text(
                 text = if (!isError) "SPONSORED ADVERTISEMENT" else "DAILY INSPIRATION",

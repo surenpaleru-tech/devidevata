@@ -61,5 +61,6 @@ data class Festival(
     val deityCategoryId: Int, // God connected to this festival
     val description: String,
     val rituals: String,
-    val notificationSent: Boolean = false
+    val notificationSent: Boolean = false,
+    val language: String = "English"
 )

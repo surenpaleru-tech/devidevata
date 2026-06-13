@@ -349,7 +349,14 @@ class DivineViewModel(
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     val festivals: StateFlow<List<Festival>> = repository.allFestivals
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+        .combine(_selectedLanguage) { list, language ->
+            val filtered = list.filter { it.language.equals(language, ignoreCase = true) }
+            if (filtered.isEmpty()) {
+                list.filter { it.language.equals("English", ignoreCase = true) }
+            } else {
+                filtered
+            }
+        }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     // --- Helpers to flatten flows ---
     private fun <T, R> StateFlow<T>.flatMapLatestFlow(transform: (T) -> kotlinx.coroutines.flow.Flow<R>): kotlinx.coroutines.flow.Flow<R> {
@@ -364,6 +371,8 @@ class DivineViewModel(
         // Enforce prepopulation immediately on startup
         viewModelScope.launch {
             repository.checkAndPrepopulateData()
+            // Hydrate the local database with the selected language's JSON assets
+            repository.loadLanguageDataFromAssets(_selectedLanguage.value)
             setupNotificationChannel()
 
             try {
@@ -372,6 +381,19 @@ class DivineViewModel(
             } catch (e: Exception) {
                 Log.e("DivineViewModel", "Failed to clean up 24-hour demo festival", e)
             }
+        }
+    }
+
+    // --- Dynamic Content Additions ---
+    fun addCustomStotram(stotram: StotramPuja) {
+        viewModelScope.launch {
+            repository.addCustomStotram(stotram)
+        }
+    }
+
+    fun addCustomFestival(festival: Festival) {
+        viewModelScope.launch {
+            repository.addCustomFestival(festival)
         }
     }
 

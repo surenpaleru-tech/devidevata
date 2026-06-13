@@ -1,0 +1,162 @@
+{
+  "festivals": [
+    {
+      "id": 501,
+      "title": "Maha Shivaratri",
+      "dateStr": "2026-02-15",
+      "dayOfWeek": "Sunday",
+      "Month": "Phalguna (Krishna Chaturdashi)",
+      "tithi": "Krishna Paksha Chaturdashi",
+      "nakshatra": "Shatabhisha",
+      "deityCategoryId": 2,
+      "description": "The great night of Shiva celebrating his cosmic dance of creation and marriage to Parvati.",
+      "rituals": "Keep rigorous fast, visual vigil (Jagaran), and pour sacred milk, honey, bael leaves over the Shiva Lingam at midnight."
+    },
+    {
+      "id": 502,
+      "title": "Rama Navami",
+      "dateStr": "2026-03-27",
+      "dayOfWeek": "Friday",
+      "Month": "Chaitra (Shukla Navami)",
+      "tithi": "Shukla Navami",
+      "nakshatra": "Punarvasu",
+      "deityCategoryId": 5,
+      "description": "Commemorates the birth incarnation of Lord Sri Rama in Ayodhya.",
+      "rituals": "Chant Ram Nama, sing Ramacharitamanas, and decorate shrines with holy saffron flags."
+    },
+    {
+      "id": 503,
+      "title": "Janmashtami",
+      "dateStr": "2026-09-03",
+      "dayOfWeek": "Thursday",
+      "Month": "Bhadrapada (Krishna Ashtami)",
+      "tithi": "Krishna Paksha Ashtami",
+      "nakshatra": "Rohini",
+      "deityCategoryId": 3,
+      "description": "Celebrates the mystical birth of the dark Lord Krishna in Mathura prison at midnight.",
+      "rituals": "Fasting until midnight birth, swinging infant Laddu Gopal deities, singing bhajans, and Dahi Handi celebrations."
+    },
+    {
+      "id": 504,
+      "title": "Ganesh Chaturthi",
+      "dateStr": "2026-09-15",
+      "dayOfWeek": "Tuesday",
+      "Month": "Bhadrapada (Shukla Chaturthi)",
+      "tithi": "Shukla Paksha Chaturthi",
+      "nakshatra": "Hasta",
+      "deityCategoryId": 1,
+      "description": "Arrival festival of Vinayakar down from the celestial abode to bless earth with wisdom.",
+      "rituals": "Enshrining clay idols of Ganesha, offering 21 modaks, chanting Ganesha Atharvashirsha, and performing Visarjan (immersion)."
+    },
+    {
+      "id": 505,
+      "title": "Vijayadashami / Dussehra",
+      "dateStr": "2026-10-20",
+      "dayOfWeek": "Tuesday",
+      "Month": "Ashvina (Shukla Dashami)",
+      "tithi": "Shukla Dashami",
+      "nakshatra": "Shravana",
+      "deityCategoryId": 4,
+      "description": "Mother Durga vanquishes buffalo demon Mahishasura, and Lord Rama slays ten-headed Ravana.",
+      "rituals": "Burning of giant Ravana effigies, worshipping work tools/books, and performing Shami trees worship."
+    },
+    {
+      "id": 506,
+      "title": "Ganga Dussehra",
+      "dateStr": "2026-06-10",
+      "dayOfWeek": "Wednesday",
+      "Month": "Jyeshtha (Shukla Dashami)",
+      "tithi": "Shukla Dashami",
+      "nakshatra": "Hasta",
+      "deityCategoryId": 4,
+      "description": "The holy day when the celestial Goddess Ganga descended from Heaven to purify Earth.",
+      "rituals": "Take a holy bath in sacred rivers, light earthen lamps (diyas), chant Ganga Gayatri, and distribute water and charity."
+    },
+    {
+      "id": 508,
+      "title": "Nirjala Ekadashi",
+      "dateStr": "2026-06-25",
+      "dayOfWeek": "Thursday",
+      "Month": "Jyeshtha (Shukla Ekadashi)",
+      "tithi": "Shukla Paksha Ekadashi",
+      "nakshatra": "Swati",
+      "deityCategoryId": 3,
+      "description": "The most sacred, strict, and powerful waterless fast of the year. Destroys all negative karmic debris and elevates spiritual consciousness directly to Vaikuntha.",
+      "rituals": "Absolute waterless fast, continuous chanting of Vishnu Sahasranama, and distributing sweet water (Sherbet) and charity to those in need."
+    }
+  ],
+  "stotrams": [
+    {
+      "id": 501,
+      "categoryId": 1,
+      "type": "MANTRA",
+      "title": "Ganesha Root Chant",
+      "sanskritText": "Om Gam Ganapataye Namaha.",
+      "translation": "O Lord Ganesha, ruler of the universe and remover of obstacles, I bow down to you in complete surrender.",
+      "benefits": "Grants continuous success, destroys external blockages, and brings incredible intellect."
+    },
+    {
+      "id": 502,
+      "categoryId": 1,
+      "type": "STOTRAM",
+      "title": "Sankata Nashana Ganesha Stotram",
+      "sanskritText": "Pranamya Shirasa Devam Gauri Putram Vinayakam...",
+      "translation": "By worshipping Gauri's son Ganesha daily, one achieves a long life and the fulfillment of all righteous desires.",
+      "benefits": "Directly solves severe life crises, grants steady wealth, and brings family peace."
+    },
+    {
+      "id": 503,
+      "categoryId": 2,
+      "type": "STOTRAM",
+      "title": "Shiva Holy Syllable Hymn",
+      "sanskritText": "Nagendra Haraya Trilochanaya Bhasmangaragaya...",
+      "translation": "Sincere obeisance to Lord Shiva, decorated by the cobra garland, possessing three eyes, smeared in holy white ash, representing the prime syllable 'Na'.",
+      "benefits": "Establishes supreme mental focus and harmonizes energy pathways."
+    },
+    {
+      "id": 504,
+      "categoryId": 3,
+      "type": "STOTRAM",
+      "title": "Madhurashtakam (Hymn of Sweetness)",
+      "sanskritText": "Adharam Madhuram Vadanam Madhuram Nayanam Madhuram...",
+      "translation": "Everything associated with Sri Krishna, the master of absolute sweetness, is exceptionally sweet - His lips, eyes, gait, and heart.",
+      "benefits": "Fills the heart with pure devotional bliss and heals psychological stress."
+    },
+    {
+      "id": 505,
+      "categoryId": 4,
+      "type": "AARTI",
+      "title": "Mother Durga's Triumph Aarti",
+      "sanskritText": "Ambe Tu Hai Jagdambe Kali, Jai Durge Khappar Wali...",
+      "translation": "Glory to the protective cosmic Mother Durga, who rides a majestic lion and conquers evil forces to bless her devotees.",
+      "benefits": "Builds absolute inner strength, courage, and protects against malice or dark energy."
+    },
+    {
+      "id": 506,
+      "categoryId": 5,
+      "type": "STOTRAM",
+      "title": "Sri Ram Protection Hymn",
+      "sanskritText": "Charitam Raghunathasya Shatakoti Pravistaram...",
+      "translation": "The legendary story of Rama spans billions of verses; reciting even a single letter dissolves the heaviest karmic baggage.",
+      "benefits": "Constructs an invisible protective energy dome around the practitioner."
+    },
+    {
+      "id": 507,
+      "categoryId": 2,
+      "type": "STOTRAM",
+      "title": "Shiva Tandava Hymn of Power",
+      "sanskritText": "Jatatavigalajjala Pravahapavitasthale Galebavalambya...",
+      "translation": "Praising Shiva's ecstatic cosmic dance, with the flowing Ganga, the rhythm of his damaru drum, and his majestic crest crescent moon.",
+      "benefits": "Enhances personal magnetism, speech fluency, and shields the mind profoundly."
+    },
+    {
+      "id": 508,
+      "categoryId": 3,
+      "type": "MANTRA",
+      "title": "Hare Krishna Maha Mantra",
+      "sanskritText": "Hare Krishna Hare Krishna Krishna Krishna Hare Hare, Hare Rama Hare Rama Rama Rama Hare Hare.",
+      "translation": "Chanting the ultimate holy names of God's pleasure energy to awaken spiritual self-realization.",
+      "benefits": "Breathes transcendent joy, purifies historical karma, and solves existential dread."
+    }
+  ]
+}

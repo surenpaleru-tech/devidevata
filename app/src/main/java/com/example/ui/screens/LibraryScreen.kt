@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -42,6 +44,7 @@ fun LibraryScreen(
     var searchQuery by remember { mutableStateOf("") }
     var selectedCategoryId by remember { mutableStateOf<Int?>(null) } // null means "All Deities"
     var selectedType by remember { mutableStateOf("ALL") } // "ALL", "STOTRAM", "AARTI", "MANTRA"
+    var showAddDialog by remember { mutableStateOf(false) }
 
     // Collect pre-populated stotrams direct from active database flows
     val stotramsList by viewModel.allStotrams.collectAsState()
@@ -65,13 +68,14 @@ fun LibraryScreen(
         }
     }
 
-    LazyColumn(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
-            .padding(horizontal = 16.dp),
-        contentPadding = PaddingValues(bottom = 100.dp)
-    ) {
+    Box(modifier = modifier.fillMaxSize()) {
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background)
+                .padding(horizontal = 16.dp),
+            contentPadding = PaddingValues(bottom = 100.dp)
+        ) {
         // 1. Premium Screen Header
         item {
             Spacer(modifier = Modifier.height(20.dp))
@@ -467,6 +471,32 @@ fun LibraryScreen(
             }
         }
     }
+
+    // Beautiful Floating Action Button to dynamically ADD any Hymn / Mantra / Aarti!
+    ExtendedFloatingActionButton(
+        onClick = { showAddDialog = true },
+        modifier = Modifier
+            .align(Alignment.BottomEnd)
+            .padding(bottom = 24.dp, end = 24.dp)
+            .testTag("add_custom_hymn_fab"),
+        containerColor = MaterialTheme.colorScheme.primaryContainer,
+        contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+        icon = { Icon(Icons.Default.Add, contentDescription = "Add Custom Hymn") },
+        text = { Text("Add Custom", fontWeight = FontWeight.Bold) }
+    )
+
+    if (showAddDialog) {
+        AddCustomHymnDialog(
+            currentLanguage = selectedLanguage,
+            categories = categories,
+            onDismiss = { showAddDialog = false },
+            onAdd = { customHymn ->
+                viewModel.addCustomStotram(customHymn)
+                showAddDialog = false
+            }
+        )
+    }
+}
 }
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -804,3 +834,169 @@ fun borderStrokeGradient(color: Color) = androidx.compose.foundation.BorderStrok
         )
     )
 )
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun AddCustomHymnDialog(
+    currentLanguage: String,
+    categories: List<com.example.data.database.GodCategory>,
+    onDismiss: () -> Unit,
+    onAdd: (StotramPuja) -> Unit
+) {
+    var title by remember { mutableStateOf("") }
+    var rawText by remember { mutableStateOf("") }
+    var translation by remember { mutableStateOf("") }
+    var benefits by remember { mutableStateOf("") }
+    
+    var selectedCategoryIndex by remember { mutableStateOf(0) }
+    var isCategoryDropdownExpanded by remember { mutableStateOf(false) }
+    
+    val types = listOf("STOTRAM", "AARTI", "MANTRA")
+    var selectedTypeIndex by remember { mutableStateOf(0) }
+    var isTypeDropdownExpanded by remember { mutableStateOf(false) }
+    
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = {
+            Text(
+                "Add Custom Hymn (${currentLanguage})",
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = FontFamily.Serif
+                )
+            )
+        },
+        text = {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                // Category Dropdown
+                if (categories.isNotEmpty()) {
+                    Box(modifier = Modifier.fillMaxWidth()) {
+                        OutlinedTextField(
+                            value = categories[selectedCategoryIndex].name,
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text("Associated Deity") },
+                            trailingIcon = {
+                                IconButton(onClick = { isCategoryDropdownExpanded = true }) {
+                                    Icon(Icons.Default.ArrowDropDown, contentDescription = "Deities")
+                                }
+                            },
+                            modifier = Modifier.fillMaxWidth()
+                        )
+                        DropdownMenu(
+                            expanded = isCategoryDropdownExpanded,
+                            onDismissRequest = { isCategoryDropdownExpanded = false }
+                        ) {
+                            categories.forEachIndexed { index, cat ->
+                                DropdownMenuItem(
+                                    text = { Text(cat.name) },
+                                    onClick = {
+                                        selectedCategoryIndex = index
+                                        isCategoryDropdownExpanded = false
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+                
+                // Type Dropdown
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    OutlinedTextField(
+                        value = types[selectedTypeIndex],
+                        onValueChange = {},
+                        readOnly = true,
+                        label = { Text("Sacred Type") },
+                        trailingIcon = {
+                            IconButton(onClick = { isTypeDropdownExpanded = true }) {
+                                Icon(Icons.Default.ArrowDropDown, contentDescription = "Types")
+                            }
+                        },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    DropdownMenu(
+                        expanded = isTypeDropdownExpanded,
+                        onDismissRequest = { isTypeDropdownExpanded = false }
+                    ) {
+                        types.forEachIndexed { index, ty ->
+                            DropdownMenuItem(
+                                text = { Text(ty) },
+                                onClick = {
+                                    selectedTypeIndex = index
+                                    isTypeDropdownExpanded = false
+                                }
+                            )
+                        }
+                    }
+                }
+                
+                OutlinedTextField(
+                    value = title,
+                    onValueChange = { title = it },
+                    label = { Text("Title") },
+                    placeholder = { Text("e.g., Ganesha Mangala Charanam") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+                
+                OutlinedTextField(
+                    value = rawText,
+                    onValueChange = { rawText = it },
+                    label = { Text("Verses (Sanskrit/Deity Script)") },
+                    placeholder = { Text("ॐ...") },
+                    minLines = 3,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                
+                OutlinedTextField(
+                    value = translation,
+                    onValueChange = { translation = it },
+                    label = { Text("Translation / Meaning") },
+                    placeholder = { Text("meaning...") },
+                    minLines = 2,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                
+                OutlinedTextField(
+                    value = benefits,
+                    onValueChange = { benefits = it },
+                    label = { Text("Spiritual Benefits") },
+                    placeholder = { Text("e.g., brings inner peace...") },
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    if (title.isNotBlank() && rawText.isNotBlank()) {
+                        val assocCat = if (categories.isNotEmpty()) categories[selectedCategoryIndex].id else 1
+                        val newHymn = StotramPuja(
+                            id = (1000..99999).random(), // Generate a unique ID
+                            categoryId = assocCat,
+                            type = types[selectedTypeIndex],
+                            title = title,
+                            sanskritText = rawText,
+                            translation = translation,
+                            benefits = benefits,
+                            language = currentLanguage
+                        )
+                        onAdd(newHymn)
+                    }
+                },
+                enabled = title.isNotBlank() && rawText.isNotBlank()
+            ) {
+                Text("Add Hymn")
+            }
+        },
+        dismissButton = {
+            TextButton(onClick = onDismiss) {
+                Text("Cancel")
+            }
+        }
+    )
+}
