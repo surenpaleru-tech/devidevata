@@ -13,7 +13,7 @@ import androidx.room.RoomDatabase
         TempleInfo::class,
         Festival::class
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {

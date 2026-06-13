@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1001,
+    "categoryId": 1,
+    "type": "MANTRA",
+    "title": "Ganesha Vakratunda Mahakaya Sloka",
+    "sanskritText": "वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ।\nनिर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥",
+    "translation": "O Lord Ganesha, of curved trunk and massive body, whose splendor is equal to millions of suns, please make all my works free of obstacles, always.",
+    "benefits": "Removes blockages, grants material and spiritual success, and establishes peace of mind prior to new tasks.",
+    "language": "Sanskrit"
+  },
+  {
+    "id": 1002,
+    "categoryId": 1,
+    "type": "AARTI",
+    "title": "Jai Ganesh Deva Aarti",
+    "sanskritText": "जय गणेश जय गणेश जय गणेश देवा ।\nमाता जाकी पार्वती पिता महादेवा ॥\nएक दन्त दयावन्त चार भुजाधारी ।\nमाथे पर तिलक सोहे मूस की सवारी ॥",
+    "translation": "Victory to Lord Ganesha! Whose mother is Goddess Parvati, and whose father is Lord Shiva. He has a single tusk, resides with mercy, possesses four arms, wears a vermilion tilak, and rides a humble mouse.",
+    "benefits": "Brings joy, auspicious vibes, eliminates household negativity, and increases devotional love.",
+    "language": "Sanskrit"
+  },
+  {
+    "id": 2001,
+    "categoryId": 2,
+    "type": "STOTRAM",
+    "title": "Shiva Tandava Stotram (Excerpt)",
+    "sanskritText": "जटाटवीगलज्जलप्रवाहपावितस्थले\nगलेऽवलम्ब्य लम्बितां भुजङ्गतुङ्गमालिकाम् ।\nडमड्डमड्डमड्डमन्निनादवड्डमर्वयं\nचकार चण्डताण्डवं तनोतु नः शिवः शिवम् ॥",
+    "translation": "With his neck consecrated by the flow of water trickling down from his matted forest-like hair, holding a massive snake wrapped around like a garland, and playing his damru to the rhythm of 'damat-damat-damat', Lord Shiva performed his intense cosmic Tandava dance. May he expand our auspiciousness.",
+    "benefits": "Unlocks incredible inner power, builds determination, focuses intellect, and removes fear of death.",
+    "language": "Sanskrit"
+  },
+  {
+    "id": 2002,
+    "categoryId": 2,
+    "type": "MANTRA",
+    "title": "Maha Mrityunjaya Mantra",
+    "sanskritText": "ॐ त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम् ।\nउर्वारुकमिव बन्धनान्मृत्योर्मुक्षीय माऽमृतात् ॥",
+    "translation": "We worship the three-eyed Lord Shiva, who is fragrant and nurtures all beings. Just as a ripe cucumber is liberated from its stalk's bondage, may he free us from death and guide us to immortality.",
+    "benefits": "Ensures physical health, longevity, protects from accidents, and releases mental tension and anxiety.",
+    "language": "Sanskrit"
+  },
+  {
+    "id": 3001,
+    "categoryId": 3,
+    "type": "STOTRAM",
+    "title": "Sri Madhurashtakam by Vallabhacharya",
+    "sanskritText": "अधरं मधुरं वदनं मधुरं नयनं मधुरं हसितं मधुरम् ।\nहृदयं मधुरं गमनं मधुरं मधुराधिपतेरखिलं मधुरम् ॥",
+    "translation": "His lips are sweet, His face is sweet, His eyes are sweet, His laugh is sweet, His heart is sweet, His walk is sweet—everything is sweet about the Lord of sweetness.",
+    "benefits": "Fills the heart with pure devotional bliss, heals emotional grief, and develops extreme compassion.",
+    "language": "Sanskrit"
+  },
+  {
+    "id": 4001,
+    "categoryId": 4,
+    "type": "STOTRAM",
+    "title": "Mahishasura Mardini Stotram (Verse 1)",
+    "sanskritText": "अयि गिरिनन्दिनि नन्दितमेदिनि विश्वविनोदिनि नन्द नुते\nगिरिवरविन्ध्यशिरोऽधिनिवासिनि विष्णुविलासिनि जिष्णु नुते ।\nभगवति हे शितिकण्ठकुटुम्बिनि भूरिकुटुम्बिनि भूरि कृते\nजय जय हे महिषासुरमर्दिनि रम्यकपर्दिनि शैलसुते ॥",
+    "translation": "O daughter of the mountain, who makes the whole earth joyful, who delights the universe, who is praised by Nanda, who resides on the Vindhya peaks, who causes Vishnu to smile, who is praised by Indra! O Goddess, consort of blue-necked Shiva, victorious over Mahishasura, victory to You, daughter of the mountain!",
+    "benefits": "Manifests courage, eliminates outer and inner enemies like jealousy and greed, and protects the house.",
+    "language": "Sanskrit"
+  },
+  {
+    "id": 5001,
+    "categoryId": 5,
+    "type": "STOTRAM",
+    "title": "Sri Rama Vandana - Ramachandra Kripalu Bhajuman",
+    "sanskritText": "श्रीरामचन्द्र कृपालु भजु मन हरण भवभय दारुणम् ।\nनवकंज लोचन कंज मुख कर कंज पद कंजारुणम् ॥",
+    "translation": "O my mind! Worship the compassionate Lord Ramachandra, who removes the intense suffering of worldly existence. His eyes are like newly blown lotuses, and so is his face, hands, and feet.",
+    "benefits": "Reduces negative planetary influences, improves moral character, and brings harmony to family life.",
+    "language": "Sanskrit"
+  },
+  {
+    "id": 6001,
+    "categoryId": 6,
+    "type": "STOTRAM",
+    "title": "Sri Hanuman Chalisa (Opening Verses)",
+    "sanskritText": "श्रीगुरु चरन सरोज रज निज मनु मुकुरु सुधारि ।\nबरनऊ रघुबर बिमल जसु जो दायकु फल चारि ॥\nबुद्धिहीन तनु जानिके सुमिरौ पवन कुमार ।\nबल बुधि बिद्या देहु मोहि हरहु कलेस बिकार ॥",
+    "translation": "Cleansing the mirror of my mind with the dust from the lotus feet of the Guru, I describe the pure glory of Lord Rama, which bestows the four fruits of life. Knowing myself to be ignorant, I remember Hanuman, the son of the Wind God. Give me strength, intellect, and wisdom, and destroy my suffering and impurities.",
+    "benefits": "Grants physical strength, courage, absolute protection from spirits or dark thoughts, and helps students in studies.",
+    "language": "Sanskrit"
+  },
+  {
+    "id": 7001,
+    "categoryId": 7,
+    "type": "MANTRA",
+    "title": "Saraswati Vidya Mantra",
+    "sanskritText": "सरस्वती नमस्तुभ्यं वरदे कामरूपिणी ।\nविद्यारम्भं करिष्यामी सिद्धिर्भवतु मे सदा ॥",
+    "translation": "O Goddess Saraswati, my humble salutations to you. You are the fulfiller of all wishes. As I begin my educational study/learning, may there always be success for me.",
+    "benefits": "Expands retention memory, opens intellectual pathways for research or arts, and grants clear speech.",
+    "language": "Sanskrit"
+  }
+]

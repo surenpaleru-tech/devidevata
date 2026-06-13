@@ -12,6 +12,17 @@ import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.ui.draw.clip
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.border
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -32,14 +43,21 @@ import com.example.data.database.StotramPuja
 import com.example.ui.screens.CalendarScreen
 import com.example.ui.screens.ChatScreen
 import com.example.ui.screens.GalleryScreen
+import com.example.ui.screens.DailySpiritualInsightDialog
 import com.example.ui.screens.SadhanaScreen
+import com.example.ui.screens.LibraryScreen
+import com.example.ui.screens.AdMobConsentBanner
 import com.example.ui.theme.MyApplicationTheme
 import com.example.ui.viewmodel.DivineViewModel
+import com.example.data.util.AdMobManager
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // Initialize Google AdMob
+        AdMobManager.initialize(this)
 
         // Initialize SQLite Room database
         val database = AppDatabase.getDatabase(this)
@@ -55,6 +73,16 @@ class MainActivity : ComponentActivity() {
             }
 
             val isDarkTheme by viewModel.isDarkTheme.collectAsState()
+            var showSettingsDialog by remember { mutableStateOf(false) }
+            var showDailyInsightDialog by remember { mutableStateOf(false) }
+
+            // Configurable AdMob override state variables
+            val context = LocalContext.current
+            var customAppId by remember { mutableStateOf("") }
+            var customBannerId by remember { mutableStateOf("") }
+            var customInterstitialId by remember { mutableStateOf("") }
+            var customLimitCount by remember { mutableStateOf("") }
+            var adMobExpanded by remember { mutableStateOf(false) }
 
             MyApplicationTheme(darkTheme = isDarkTheme) {
                 val activeTab by viewModel.activeTab.collectAsState()
@@ -79,17 +107,34 @@ class MainActivity : ComponentActivity() {
                                     color = MaterialTheme.colorScheme.primary
                                 )
                             )
-                            TextButton(
-                                onClick = { viewModel.toggleTheme() },
-                                modifier = Modifier.testTag("theme_toggle_button")
+                            Row(
+                                verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
-                                Text(
-                                    text = if (isDarkTheme) "🌙 Dark" else "☀️ Light",
-                                    style = MaterialTheme.typography.labelLarge.copy(
-                                        fontWeight = androidx.compose.ui.text.font.FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.primary
+                                // Daily Spiritual Insight Button before settings, in the top right
+                                IconButton(
+                                    onClick = { showDailyInsightDialog = true },
+                                    modifier = Modifier.testTag("appbar_daily_insight_button")
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Star,
+                                        contentDescription = "Daily Spiritual Insight",
+                                        tint = Color(0xFFFF9100), // Vibrant Saffron-orange brand indicator
+                                        modifier = Modifier.size(24.dp)
                                     )
-                                )
+                                }
+
+                                IconButton(
+                                    onClick = { showSettingsDialog = true },
+                                    modifier = Modifier.testTag("settings_button")
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Default.Settings,
+                                        contentDescription = "Settings",
+                                        tint = MaterialTheme.colorScheme.primary,
+                                        modifier = Modifier.size(24.dp)
+                                    )
+                                }
                             }
                         }
                     },
@@ -116,6 +161,19 @@ class MainActivity : ComponentActivity() {
                                     },
                                     label = { Text("Gallery", style = MaterialTheme.typography.labelSmall) },
                                     modifier = Modifier.testTag("tab_gallery")
+                                )
+
+                                NavigationBarItem(
+                                    selected = activeTab == "library",
+                                    onClick = { viewModel.selectTab("library") },
+                                    icon = {
+                                        Icon(
+                                            Icons.Default.List,
+                                            contentDescription = "Sacred hymns and puja library"
+                                        )
+                                    },
+                                    label = { Text("Library", style = MaterialTheme.typography.labelSmall) },
+                                    modifier = Modifier.testTag("tab_library")
                                 )
 
                                 NavigationBarItem(
@@ -169,14 +227,18 @@ class MainActivity : ComponentActivity() {
                             )
                     ) {
                         when (activeTab) {
-                            "gallery" -> GalleryScreen(
-                                viewModel = viewModel,
-                                modifier = Modifier.fillMaxSize()
-                            )
-                            "calendar" -> CalendarScreen(
-                                viewModel = viewModel,
-                                modifier = Modifier.fillMaxSize()
-                            )
+                                "gallery" -> GalleryScreen(
+                                    viewModel = viewModel,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+                                "library" -> LibraryScreen(
+                                    viewModel = viewModel,
+                                    modifier = Modifier.fillMaxSize()
+                                )
+                                "calendar" -> CalendarScreen(
+                                    viewModel = viewModel,
+                                    modifier = Modifier.fillMaxSize()
+                                )
                             "chat" -> ChatScreen(
                                 viewModel = viewModel,
                                 modifier = Modifier.fillMaxSize()
@@ -186,7 +248,423 @@ class MainActivity : ComponentActivity() {
                                 modifier = Modifier.fillMaxSize()
                             )
                         }
+
+                        // Prominent but non-intrusive bottom-positioned consent banner
+                        AdMobConsentBanner(
+                            modifier = Modifier.align(Alignment.BottomCenter)
+                        )
                     }
+                }
+
+                if (showSettingsDialog) {
+                    LaunchedEffect(Unit) {
+                        customAppId = AdMobManager.getAppId(context)
+                        customBannerId = AdMobManager.getBannerAdUnitId(context)
+                        customInterstitialId = AdMobManager.getInterstitialAdUnitId(context)
+                        customLimitCount = AdMobManager.getLimitCount(context).toString()
+                    }
+
+                    AlertDialog(
+                        onDismissRequest = { showSettingsDialog = false },
+                        confirmButton = {
+                            TextButton(
+                                onClick = { showSettingsDialog = false },
+                                modifier = Modifier.testTag("settings_close_btn")
+                            ) {
+                                Text("Close", style = MaterialTheme.typography.labelLarge)
+                            }
+                        },
+                        title = {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Settings,
+                                    contentDescription = "Settings",
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                                Text(
+                                    text = "App Settings",
+                                    style = MaterialTheme.typography.titleLarge.copy(
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = androidx.compose.ui.text.font.FontFamily.Serif
+                                    )
+                                )
+                            }
+                        },
+                        text = {
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(vertical = 8.dp)
+                                    .verticalScroll(rememberScrollState()),
+                                verticalArrangement = Arrangement.spacedBy(16.dp)
+                            ) {
+                                Text(
+                                    text = "Aesthetics",
+                                    style = MaterialTheme.typography.titleSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    fontWeight = FontWeight.Bold
+                                )
+
+                                Card(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.4f)
+                                    ),
+                                    shape = RoundedCornerShape(12.dp)
+                                ) {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(14.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                        ) {
+                                            Text(
+                                                text = if (isDarkTheme) "🌙" else "☀️",
+                                                fontSize = 18.sp
+                                            )
+                                            Text(
+                                                text = "Dark Interface Theme",
+                                                style = MaterialTheme.typography.bodyLarge,
+                                                color = MaterialTheme.colorScheme.onSurface
+                                            )
+                                        }
+                                        Switch(
+                                            checked = isDarkTheme,
+                                            onCheckedChange = { viewModel.toggleTheme() },
+                                            modifier = Modifier.testTag("settings_theme_switch")
+                                        )
+                                    }
+                                }
+
+                                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+
+                                Text(
+                                    text = "Sacred Language Preference",
+                                    style = MaterialTheme.typography.titleSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    fontWeight = FontWeight.Bold
+                                )
+
+                                val selectedLanguage by viewModel.selectedLanguage.collectAsState()
+                                var showLanguageSubSelector by remember { mutableStateOf(false) }
+
+                                Card(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable { showLanguageSubSelector = true }
+                                        .testTag("settings_language_card_trigger"),
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.25f)
+                                    ),
+                                    shape = RoundedCornerShape(12.dp),
+                                    border = androidx.compose.foundation.BorderStroke(
+                                        width = 1.dp,
+                                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.3f)
+                                    )
+                                ) {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(14.dp),
+                                        horizontalArrangement = Arrangement.SpaceBetween,
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                        ) {
+                                            Text(
+                                                text = "🕉️",
+                                                fontSize = 18.sp
+                                            )
+                                            Column {
+                                                Text(
+                                                    text = "Current Language",
+                                                    style = MaterialTheme.typography.bodySmall,
+                                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                                )
+                                                Text(
+                                                    text = selectedLanguage,
+                                                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                                                    color = MaterialTheme.colorScheme.primary
+                                                )
+                                            }
+                                        }
+                                        Text(
+                                            text = "Change ➔",
+                                            style = MaterialTheme.typography.labelLarge,
+                                            color = MaterialTheme.colorScheme.primary
+                                        )
+                                    }
+                                }
+
+                                if (showLanguageSubSelector) {
+                                    AlertDialog(
+                                        onDismissRequest = { showLanguageSubSelector = false },
+                                        confirmButton = {
+                                            TextButton(onClick = { showLanguageSubSelector = false }) {
+                                                Text("Back")
+                                            }
+                                        },
+                                        title = {
+                                            Text(
+                                                "Select Sacred Language",
+                                                style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                                            )
+                                        },
+                                        text = {
+                                            val indianLanguages = listOf(
+                                                "Assamese", "Bengali", "Bodo", "Dogri", "English", "Gujarati", "Hindi",
+                                                "Kannada", "Kashmiri", "Konkani", "Maithili", "Malayalam", "Manipuri",
+                                                "Marathi", "Nepali", "Odia", "Punjabi", "Sanskrit", "Santali", "Sindhi",
+                                                "Tamil", "Telugu", "Urdu"
+                                            )
+
+                                            Box(modifier = Modifier.sizeIn(maxHeight = 350.dp)) {
+                                                LazyVerticalGrid(
+                                                    columns = GridCells.Fixed(2),
+                                                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                                    verticalArrangement = Arrangement.spacedBy(8.dp),
+                                                    modifier = Modifier.fillMaxWidth().testTag("indian_languages_grid")
+                                                ) {
+                                                    items(indianLanguages.size) { index ->
+                                                        val lang = indianLanguages[index]
+                                                        val isCurrent = lang.equals(selectedLanguage, ignoreCase = true)
+                                                        Box(
+                                                            modifier = Modifier
+                                                                .clip(RoundedCornerShape(8.dp))
+                                                                .background(
+                                                                    if (isCurrent) MaterialTheme.colorScheme.primaryContainer
+                                                                    else MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.3f)
+                                                                )
+                                                                .border(
+                                                                    width = 1.dp,
+                                                                    color = if (isCurrent) MaterialTheme.colorScheme.primary
+                                                                            else MaterialTheme.colorScheme.outlineVariant,
+                                                                    shape = RoundedCornerShape(8.dp)
+                                                                )
+                                                                .clickable {
+                                                                    viewModel.changeLanguage(lang)
+                                                                    showLanguageSubSelector = false
+                                                                }
+                                                                .padding(horizontal = 10.dp, vertical = 12.dp)
+                                                                .testTag("settings_lang_select_$lang"),
+                                                            contentAlignment = Alignment.CenterStart
+                                                        ) {
+                                                            Row(
+                                                                verticalAlignment = Alignment.CenterVertically,
+                                                                horizontalArrangement = Arrangement.spacedBy(6.dp)
+                                                            ) {
+                                                                if (isCurrent) {
+                                                                    Text("✓", color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold, fontSize = 12.sp)
+                                                                }
+                                                                Text(
+                                                                    text = lang,
+                                                                    style = MaterialTheme.typography.bodyMedium.copy(
+                                                                        fontWeight = if (isCurrent) FontWeight.Bold else FontWeight.Normal
+                                                                    ),
+                                                                    color = if (isCurrent) MaterialTheme.colorScheme.onPrimaryContainer
+                                                                            else MaterialTheme.colorScheme.onSurface
+                                                                )
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    )
+                                }
+
+                                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+
+                                Text(
+                                    text = "Offline Local Cache Status",
+                                    style = MaterialTheme.typography.titleSmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    fontWeight = FontWeight.Bold
+                                )
+
+                                Card(
+                                    modifier = Modifier.fillMaxWidth().testTag("offline_cache_status_card"),
+                                    colors = CardDefaults.cardColors(
+                                        containerColor = MaterialTheme.colorScheme.secondaryContainer.copy(alpha = 0.15f)
+                                    ),
+                                    shape = RoundedCornerShape(12.dp),
+                                    border = androidx.compose.foundation.BorderStroke(
+                                        width = 1.dp,
+                                        color = MaterialTheme.colorScheme.secondary.copy(alpha = 0.25f)
+                                    )
+                                ) {
+                                    Column(
+                                        modifier = Modifier.fillMaxWidth().padding(14.dp),
+                                        verticalArrangement = Arrangement.spacedBy(8.dp)
+                                    ) {
+                                        Row(
+                                            verticalAlignment = Alignment.CenterVertically,
+                                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                                        ) {
+                                            Icon(
+                                                imageVector = Icons.Default.CheckCircle,
+                                                contentDescription = "Offline Vault Active",
+                                                tint = MaterialTheme.colorScheme.secondary,
+                                                modifier = Modifier.size(20.dp)
+                                            )
+                                            Text(
+                                                text = "Offline Storage Vault",
+                                                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                                                color = MaterialTheme.colorScheme.onSurface
+                                            )
+                                            Spacer(modifier = Modifier.weight(1f))
+                                            Box(
+                                                modifier = Modifier
+                                                    .clip(RoundedCornerShape(4.dp))
+                                                    .background(MaterialTheme.colorScheme.secondary.copy(alpha = 0.15f))
+                                                    .padding(horizontal = 6.dp, vertical = 2.dp)
+                                            ) {
+                                                Text(
+                                                    text = "SECURED (SQLite Room)",
+                                                    fontSize = 9.sp,
+                                                    fontWeight = FontWeight.Bold,
+                                                    color = MaterialTheme.colorScheme.secondary
+                                                )
+                                            }
+                                        }
+
+                                        Text(
+                                            text = "All temple locations, rich puranic histories, deity profiles, and prayer chants are fully stored in the app's local SQLite database (via Room DB). No internet connection is required for browsing.",
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                                        )
+                                    }
+                                }
+
+                                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f))
+
+                                Row(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable { adMobExpanded = !adMobExpanded }
+                                        .testTag("admob_settings_toggle")
+                                        .padding(vertical = 4.dp),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Text(
+                                        text = "AdMob Advertising Setup",
+                                        style = MaterialTheme.typography.titleSmall,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                    Text(
+                                        text = if (adMobExpanded) "▲ Hide" else "▼ Show Details",
+                                        style = MaterialTheme.typography.labelMedium,
+                                        color = MaterialTheme.colorScheme.primary
+                                    )
+                                }
+
+                                if (adMobExpanded) {
+                                    Card(
+                                        modifier = Modifier.fillMaxWidth().testTag("admob_override_card"),
+                                        colors = CardDefaults.cardColors(
+                                            containerColor = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.15f)
+                                        ),
+                                        shape = RoundedCornerShape(12.dp),
+                                        border = androidx.compose.foundation.BorderStroke(
+                                            width = 1.dp,
+                                            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.35f)
+                                        )
+                                    ) {
+                                        Column(
+                                            modifier = Modifier.fillMaxWidth().padding(14.dp),
+                                            verticalArrangement = Arrangement.spacedBy(10.dp)
+                                        ) {
+                                            Text(
+                                                text = "Configure AdMob Credentials",
+                                                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
+                                                color = MaterialTheme.colorScheme.primary
+                                            )
+                                            Text(
+                                                text = "You can customize AdMob Application and Unit IDs below. Safe Google advertiser test values are loaded by default.",
+                                                style = MaterialTheme.typography.bodySmall,
+                                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                                            )
+
+                                            OutlinedTextField(
+                                                value = customAppId,
+                                                onValueChange = { customAppId = it },
+                                                label = { Text("AdMob Application ID", fontSize = 10.sp) },
+                                                singleLine = true,
+                                                modifier = Modifier.fillMaxWidth().testTag("admob_app_id_input"),
+                                                textStyle = MaterialTheme.typography.bodySmall
+                                            )
+
+                                            OutlinedTextField(
+                                                value = customInterstitialId,
+                                                onValueChange = { customInterstitialId = it },
+                                                label = { Text("Interstitial Ad Unit ID", fontSize = 10.sp) },
+                                                singleLine = true,
+                                                modifier = Modifier.fillMaxWidth().testTag("admob_interstitial_id_input"),
+                                                textStyle = MaterialTheme.typography.bodySmall
+                                            )
+
+                                            OutlinedTextField(
+                                                value = customBannerId,
+                                                onValueChange = { customBannerId = it },
+                                                label = { Text("Inline Banner Ad Unit ID", fontSize = 10.sp) },
+                                                singleLine = true,
+                                                modifier = Modifier.fillMaxWidth().testTag("admob_banner_id_input"),
+                                                textStyle = MaterialTheme.typography.bodySmall
+                                            )
+
+                                            OutlinedTextField(
+                                                value = customLimitCount,
+                                                onValueChange = { customLimitCount = it },
+                                                label = { Text("Display Frequency Action Interval", fontSize = 10.sp) },
+                                                singleLine = true,
+                                                modifier = Modifier.fillMaxWidth().testTag("admob_limit_count_input"),
+                                                textStyle = MaterialTheme.typography.bodySmall
+                                            )
+
+                                            Button(
+                                                onClick = {
+                                                    val parsedLimit = customLimitCount.toIntOrNull() ?: 3
+                                                    AdMobManager.saveAdMobConfig(
+                                                        context,
+                                                        customAppId,
+                                                        customBannerId,
+                                                        customInterstitialId,
+                                                        parsedLimit
+                                                    )
+                                                    android.widget.Toast.makeText(context, "Configurations stored successfully!", android.widget.Toast.LENGTH_SHORT).show()
+                                                },
+                                                modifier = Modifier.fillMaxWidth().testTag("admob_save_btn"),
+                                                colors = ButtonDefaults.buttonColors(
+                                                    containerColor = MaterialTheme.colorScheme.primary
+                                                )
+                                            ) {
+                                                Text("Save AdMob Parameters", color = MaterialTheme.colorScheme.onPrimary)
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    )
+                }
+
+                if (showDailyInsightDialog) {
+                    DailySpiritualInsightDialog(
+                        viewModel = viewModel,
+                        onDismiss = { showDailyInsightDialog = false }
+                    )
                 }
             }
         }

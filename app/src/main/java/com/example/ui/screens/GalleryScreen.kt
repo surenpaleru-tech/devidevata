@@ -17,6 +17,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.border
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.ui.draw.shadow
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.Icons
@@ -36,8 +38,10 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.font.FontFamily
@@ -100,6 +104,7 @@ fun GalleryScreen(
                     // Normal grid of God Categories
                     CategoryListView(
                         categories = catList,
+                        viewModel = viewModel,
                         onCategorySelect = { viewModel.selectCategory(it) },
                         searchQuery = searchQuery,
                         onSearchChange = { viewModel.updateSearchQuery(it) }
@@ -113,6 +118,7 @@ fun GalleryScreen(
 @Composable
 fun CategoryListView(
     categories: List<GodCategory>,
+    viewModel: DivineViewModel,
     onCategorySelect: (GodCategory) -> Unit,
     searchQuery: String,
     onSearchChange: (String) -> Unit
@@ -142,6 +148,8 @@ fun CategoryListView(
         )
 
         Spacer(modifier = Modifier.height(12.dp))
+
+        // Spiritual insights now live in the floating screen accessible from Top App Bar!
 
         // Compact Search Bar
         OutlinedTextField(
@@ -196,13 +204,20 @@ fun CategoryListView(
                 it.name.contains(searchQuery, ignoreCase = true) || it.description.contains(searchQuery, ignoreCase = true)
             }
 
+            val configuration = LocalConfiguration.current
+            val columnCount = when {
+                configuration.screenWidthDp >= 900 -> 4
+                configuration.screenWidthDp >= 600 -> 3
+                else -> 2
+            }
+
             LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
+                columns = GridCells.Fixed(columnCount),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
                 verticalArrangement = Arrangement.spacedBy(12.dp),
-                contentPadding = PaddingValues(bottom = 80.dp),
+                contentPadding = PaddingValues(bottom = 16.dp),
                 modifier = Modifier
-                    .fillMaxSize()
+                    .weight(1f)
                     .testTag("categories_grid")
             ) {
                 items(filteredList) { category ->
@@ -210,6 +225,373 @@ fun CategoryListView(
                         category = category,
                         onClick = { onCategorySelect(category) }
                     )
+                }
+            }
+
+            // High-quality non-intrusive bottom visual advertisement banner
+            FullBannerAdView()
+            Spacer(modifier = Modifier.height(16.dp))
+        }
+    }
+}
+
+@Composable
+fun DailySpiritualInsightWidget(
+    viewModel: DivineViewModel,
+    modifier: Modifier = Modifier
+) {
+    val allStotrams by viewModel.allStotrams.collectAsState()
+    
+    val calendar = java.util.Calendar.getInstance()
+    val dayOfYear = calendar.get(java.util.Calendar.DAY_OF_YEAR)
+    var customOffset by remember { mutableStateOf(0) }
+    
+    val stotram = remember(allStotrams, dayOfYear, customOffset) {
+        if (allStotrams.isNotEmpty()) {
+            val index = (dayOfYear + customOffset) % allStotrams.size
+            allStotrams[index]
+        } else {
+            null
+        }
+    }
+    
+    var showFullDialog by remember { mutableStateOf(false) }
+    
+    // Fallbacks
+    val displayTitle = stotram?.title ?: "Upanishad Shanti Mantra"
+    val displaySanskrit = stotram?.sanskritText ?: "ॐ असतो मा सद्गमय ।\nतमसो मा ज्योतिर्गमय ।\nमृत्योर्माऽमृतं गमय ॥"
+    val displayTranslation = stotram?.translation ?: "Lead us from the unreal to the real, from darkness to light, from death to immortality."
+    val displayBenefits = stotram?.benefits ?: "Installs supreme peace, calms mind, and increases spiritual wisdom."
+    val displayType = stotram?.type ?: "MANTRA"
+
+    // Card Gradient Background
+    val gradientColors = listOf(
+        Color(0xFFFF6D00), // Vibrant Saffron
+        Color(0xFFDD2C00)  // Deep Saffron-Red
+    )
+
+    Card(
+        modifier = modifier
+            .fillMaxWidth()
+            .testTag("daily_insight_widget")
+            .clip(RoundedCornerShape(16.dp))
+            .clickable { showFullDialog = true },
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(androidx.compose.ui.graphics.Brush.linearGradient(gradientColors))
+                .drawBehind {
+                    // Draw sacred concentric circles on the GPU
+                    val radius = size.minDimension / 1.5f
+                    drawCircle(
+                        color = Color(0xFFFFD700).copy(alpha = 0.08f),
+                        radius = radius,
+                        center = androidx.compose.ui.geometry.Offset(size.width, size.height * 0.2f),
+                        style = Stroke(width = 1.5.dp.toPx())
+                    )
+                    drawCircle(
+                        color = Color(0xFFFFD700).copy(alpha = 0.04f),
+                        radius = radius * 0.7f,
+                        center = androidx.compose.ui.geometry.Offset(size.width, size.height * 0.2f),
+                        style = Stroke(width = 1.dp.toPx())
+                    )
+                    drawCircle(
+                        color = Color(0xFFFFD700).copy(alpha = 0.03f),
+                        radius = radius * 1.3f,
+                        center = androidx.compose.ui.geometry.Offset(0f, size.height * 0.8f),
+                        style = Stroke(width = 1.dp.toPx())
+                    )
+                }
+                .padding(16.dp)
+        ) {
+            Column(
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                // Header Row
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(6.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = "Sadhana Insight icon",
+                            tint = Color(0xFFFFD700),
+                            modifier = Modifier.size(18.dp)
+                        )
+                        Text(
+                            text = "DAILY SPIRITUAL INSIGHT",
+                            style = MaterialTheme.typography.labelSmall.copy(
+                                fontWeight = FontWeight.ExtraBold,
+                                letterSpacing = 1.2.sp
+                            ),
+                            color = Color.White.copy(alpha = 0.9f)
+                        )
+                    }
+
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(2.dp)
+                    ) {
+                        // Type Badge
+                        Box(
+                            modifier = Modifier
+                                .clip(RoundedCornerShape(4.dp))
+                                .background(Color.White.copy(alpha = 0.2f))
+                                .padding(horizontal = 6.dp, vertical = 2.dp)
+                        ) {
+                            Text(
+                                text = displayType,
+                                fontSize = 9.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.White
+                            )
+                        }
+
+                        // Refresh/Next button
+                        var rotationState by remember { mutableStateOf(0f) }
+                        val animatedRotation by animateFloatAsState(
+                            targetValue = rotationState,
+                            animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy)
+                        )
+                        IconButton(
+                            onClick = {
+                                rotationState += 360f
+                                customOffset += 1
+                            },
+                            modifier = Modifier
+                                .size(32.dp)
+                                .graphicsLayer(rotationZ = animatedRotation)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Refresh,
+                                contentDescription = "Next spiritual insight",
+                                tint = Color.White,
+                                modifier = Modifier.size(16.dp)
+                            )
+                        }
+                    }
+                }
+
+                // Title
+                Text(
+                    text = displayTitle,
+                    style = MaterialTheme.typography.titleMedium.copy(
+                        fontWeight = FontWeight.Bold,
+                        fontFamily = FontFamily.Serif
+                    ),
+                    color = Color.White
+                )
+
+                // Sanskrit Quote Block
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(Color.Black.copy(alpha = 0.12f))
+                        .padding(10.dp)
+                ) {
+                    Text(
+                        text = displaySanskrit.lines().take(3).joinToString("\n") { it.trim() } +
+                                if (displaySanskrit.lines().size > 3) "\n..." else "",
+                        style = MaterialTheme.typography.bodyMedium.copy(
+                            fontFamily = FontFamily.Serif,
+                            fontWeight = FontWeight.Medium,
+                            lineHeight = 20.sp,
+                            textAlign = TextAlign.Center
+                        ),
+                        color = Color(0xFFFFE082), // Golden Yellow text
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                }
+
+                // Translation
+                Text(
+                    text = displayTranslation,
+                    style = MaterialTheme.typography.bodySmall,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    color = Color.White.copy(alpha = 0.9f)
+                )
+
+                // Prompt user to tap to expand
+                Row(
+                    modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Tap to view full ritual context, chants & benefits",
+                        style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Light),
+                        color = Color.White.copy(alpha = 0.7f)
+                    )
+                    
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                        contentDescription = "Expand details",
+                        tint = Color.White.copy(alpha = 0.7f),
+                        modifier = Modifier.size(14.dp)
+                    )
+                }
+            }
+        }
+    }
+
+    if (showFullDialog) {
+        Dialog(onDismissRequest = { showFullDialog = false }) {
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 24.dp)
+                    .testTag("daily_insight_dialog"),
+                shape = RoundedCornerShape(20.dp),
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                elevation = CardDefaults.cardElevation(defaultElevation = 12.dp)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(18.dp)
+                ) {
+                    // Title section
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Text(
+                            text = displayTitle,
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Serif,
+                                color = MaterialTheme.colorScheme.primary
+                            ),
+                            modifier = Modifier.weight(1f)
+                        )
+                        IconButton(onClick = { showFullDialog = false }) {
+                            Icon(
+                                imageVector = Icons.Default.Close,
+                                contentDescription = "Close dialog",
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f, fill = false)
+                            .verticalScroll(rememberScrollState()),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        // Saffron original card panel
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(androidx.compose.ui.graphics.Brush.linearGradient(gradientColors))
+                                .padding(16.dp)
+                        ) {
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.Star,
+                                    contentDescription = "Sacred Emblem",
+                                    tint = Color(0xFFFFD700),
+                                    modifier = Modifier.size(24.dp)
+                                )
+                                Spacer(modifier = Modifier.height(8.dp))
+                                Text(
+                                    text = displaySanskrit,
+                                    style = MaterialTheme.typography.bodyLarge.copy(
+                                        fontFamily = FontFamily.Serif,
+                                        fontWeight = FontWeight.Bold,
+                                        lineHeight = 24.sp,
+                                        textAlign = TextAlign.Center
+                                    ),
+                                    color = Color(0xFFFFE082),
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            }
+                        }
+
+                        // Translation Section
+                        Column {
+                            Text(
+                                text = "Sacred Interpretation (Translation)",
+                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = displayTranslation,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+
+                        // Benefits Section
+                        Column {
+                            Text(
+                                text = "Chanting Benefits & Astrological Significance",
+                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.height(4.dp))
+                            Text(
+                                text = displayBenefits,
+                                style = MaterialTheme.typography.bodyMedium,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        // TTS Audio Play Button inside dialog
+                        Button(
+                            onClick = {
+                                if (stotram != null) {
+                                    viewModel.speakStotram(stotram)
+                                } else {
+                                    // Custom fallback speech
+                                    Toast.makeText(viewModel.getApplication(), "Playing Shanti Mantra chanting...", Toast.LENGTH_SHORT).show()
+                                }
+                            },
+                            modifier = Modifier.weight(1f),
+                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.PlayArrow,
+                                contentDescription = "Play chant narration",
+                                modifier = Modifier.size(18.dp)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text("Chant Narration", fontSize = 13.sp)
+                        }
+
+                        // Close button
+                        OutlinedButton(
+                            onClick = { showFullDialog = false },
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            Text("Close", fontSize = 13.sp)
+                        }
+                    }
                 }
             }
         }
@@ -263,13 +645,26 @@ fun GodCategoryGridCard(
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             var isImageLoading by remember { mutableStateOf(true) }
+            val imageAlpha by animateFloatAsState(
+                targetValue = if (isImageLoading) 0.0f else 1.0f,
+                animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing),
+                label = "category_image_alpha"
+            )
+            val imageScale by animateFloatAsState(
+                targetValue = if (isImageLoading) 0.94f else 1.0f,
+                animationSpec = tween(durationMillis = 600, easing = LinearOutSlowInEasing),
+                label = "category_image_scale"
+            )
 
             // Full background thumbnail image
             AsyncImage(
                 model = category.thumbnail,
                 contentDescription = category.name,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize(),
+                alpha = imageAlpha,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .graphicsLayer(scaleX = imageScale, scaleY = imageScale),
                 onLoading = { isImageLoading = true },
                 onSuccess = { isImageLoading = false },
                 onError = { isImageLoading = false }
@@ -508,8 +903,15 @@ fun GodDetailView(
                             )
                         }
                     } else {
+                        val configuration = LocalConfiguration.current
+                        val columnCount = when {
+                            configuration.screenWidthDp >= 900 -> 4
+                            configuration.screenWidthDp >= 600 -> 3
+                            else -> 2
+                        }
+
                         LazyVerticalGrid(
-                            columns = GridCells.Fixed(2),
+                            columns = GridCells.Fixed(columnCount),
                             horizontalArrangement = Arrangement.spacedBy(12.dp),
                             verticalArrangement = Arrangement.spacedBy(12.dp),
                             contentPadding = PaddingValues(bottom = 100.dp),
@@ -551,6 +953,21 @@ fun GodDetailView(
                     }
                 }
                 "temples" -> {
+                    var templeSearchQuery by remember { mutableStateOf("") }
+                    val categoriesList by viewModel.categories.collectAsState()
+                    val filteredTemples = remember(temples, templeSearchQuery, categoriesList) {
+                        if (templeSearchQuery.isBlank()) {
+                            temples
+                        } else {
+                            temples.filter { temple ->
+                                val deityName = categoriesList.find { it.id == temple.categoryId }?.name ?: ""
+                                temple.location.contains(templeSearchQuery, ignoreCase = true) ||
+                                        temple.name.contains(templeSearchQuery, ignoreCase = true) ||
+                                        deityName.contains(templeSearchQuery, ignoreCase = true)
+                            }
+                        }
+                    }
+
                     if (temples.isEmpty()) {
                         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                             Text(
@@ -560,13 +977,79 @@ fun GodDetailView(
                             )
                         }
                     } else {
-                        LazyColumn(
-                            contentPadding = PaddingValues(bottom = 80.dp),
-                            verticalArrangement = Arrangement.spacedBy(12.dp),
-                            modifier = Modifier.fillMaxSize()
-                        ) {
-                            items(temples) { temple ->
-                                TempleCard(temple = temple, themeColor = themeHexColor)
+                        Column(modifier = Modifier.fillMaxSize()) {
+                            OutlinedTextField(
+                                value = templeSearchQuery,
+                                onValueChange = { templeSearchQuery = it },
+                                placeholder = { Text("Search temples by city or deity (e.g. Mumbai, Shiva)...") },
+                                leadingIcon = { 
+                                    Icon(
+                                        imageVector = Icons.Default.Search, 
+                                        contentDescription = "Search icon",
+                                        tint = themeHexColor
+                                    ) 
+                                },
+                                trailingIcon = {
+                                    if (templeSearchQuery.isNotEmpty()) {
+                                        IconButton(onClick = { templeSearchQuery = "" }) {
+                                            Icon(
+                                                imageVector = Icons.Default.Close, 
+                                                contentDescription = "Clear search",
+                                                tint = themeHexColor
+                                            )
+                                        }
+                                    }
+                                },
+                                singleLine = true,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(bottom = 12.dp)
+                                    .testTag("temple_search_bar"),
+                                shape = RoundedCornerShape(12.dp),
+                                colors = OutlinedTextFieldDefaults.colors(
+                                    focusedBorderColor = themeHexColor,
+                                    unfocusedBorderColor = MaterialTheme.colorScheme.outlineVariant
+                                )
+                            )
+
+                            if (filteredTemples.isEmpty()) {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .weight(1f),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Column(
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                        modifier = Modifier.padding(16.dp)
+                                    ) {
+                                        Text(
+                                            text = "No Temples Found",
+                                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
+                                            color = MaterialTheme.colorScheme.onSurface
+                                        )
+                                        Spacer(modifier = Modifier.height(6.dp))
+                                        Text(
+                                            text = "No matches for \"$templeSearchQuery\" in our offline database for ${category.name}. Check spellings or search by another location.",
+                                            style = MaterialTheme.typography.bodySmall,
+                                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                            textAlign = TextAlign.Center
+                                        )
+                                    }
+                                }
+                            } else {
+                                LazyColumn(
+                                    contentPadding = PaddingValues(bottom = 80.dp),
+                                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .weight(1f)
+                                        .testTag("temples_list")
+                                ) {
+                                    items(filteredTemples) { temple ->
+                                        TempleCard(temple = temple, themeColor = themeHexColor)
+                                    }
+                                }
                             }
                         }
                     }
@@ -624,13 +1107,26 @@ fun WallpaperGridItem(
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
             var isImageLoading by remember { mutableStateOf(true) }
+            val imageAlpha by animateFloatAsState(
+                targetValue = if (isImageLoading) 0.0f else 1.0f,
+                animationSpec = tween(durationMillis = 500, easing = FastOutSlowInEasing),
+                label = "wallpaper_image_alpha"
+            )
+            val imageScale by animateFloatAsState(
+                targetValue = if (isImageLoading) 0.94f else 1.0f,
+                animationSpec = tween(durationMillis = 600, easing = LinearOutSlowInEasing),
+                label = "wallpaper_image_scale"
+            )
 
             // High-res wallpaper thumbnail
             AsyncImage(
                 model = image.thumbUrl.ifEmpty { image.url },
                 contentDescription = image.title,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.fillMaxSize(),
+                alpha = imageAlpha,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .graphicsLayer(scaleX = imageScale, scaleY = imageScale),
                 onLoading = { isImageLoading = true },
                 onSuccess = { isImageLoading = false },
                 onError = { isImageLoading = false }
@@ -1414,3 +1910,316 @@ fun ImageDetailSheet(
         }
     }
 }
+
+@OptIn(ExperimentalAnimationApi::class)
+@Composable
+fun DailySpiritualInsightDialog(
+    viewModel: DivineViewModel,
+    onDismiss: () -> Unit
+) {
+    val allStotrams by viewModel.allStotrams.collectAsState()
+    
+    val calendar = java.util.Calendar.getInstance()
+    val dayOfYear = calendar.get(java.util.Calendar.DAY_OF_YEAR)
+    var customOffset by remember { mutableStateOf(0) }
+    
+    val stotram = remember(allStotrams, dayOfYear, customOffset) {
+        if (allStotrams.isNotEmpty()) {
+            val index = (dayOfYear + customOffset) % allStotrams.size
+            allStotrams[index]
+        } else {
+            null
+        }
+    }
+    
+    // Fallbacks
+    val displayTitle = stotram?.title ?: "Upanishad Shanti Mantra"
+    val displaySanskrit = stotram?.sanskritText ?: "ॐ असतो मा सद्गमय ।\nतमसो मा ज्योतिर्गमय ।\nमृत्योर्माऽमृतं गमय ॥"
+    val displayTranslation = stotram?.translation ?: "Lead us from the unreal to the real, from darkness to light, from death to immortality."
+    val displayBenefits = stotram?.benefits ?: "Installs supreme peace, calms mind, and increases spiritual wisdom."
+    val displayType = stotram?.type ?: "MANTRA"
+
+    // Card Gradient Background (Luxury Saffron-Orange-Crimson Theme)
+    val gradientColors = listOf(
+        Color(0xFFFF6D00), // Vibrant Saffron
+        Color(0xFFE65100), // Dark Saffron
+        Color(0xFFDD2C00)  // Deep Saffron-Red
+    )
+
+    Dialog(onDismissRequest = onDismiss) {
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 12.dp)
+                .testTag("daily_insight_float_screen"),
+            shape = RoundedCornerShape(24.dp),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+            elevation = CardDefaults.cardElevation(defaultElevation = 16.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(18.dp)
+            ) {
+                // Header (Top Row with Title and Close Button)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Star,
+                            contentDescription = "Spiritual Icon",
+                            tint = Color(0xFFFFB300),
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Text(
+                            text = "Daily Insight",
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = FontFamily.Serif,
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        )
+                    }
+
+                    IconButton(
+                        onClick = onDismiss,
+                        modifier = Modifier.testTag("daily_insight_close_button")
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "Close floating screen",
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                // AnimatedContent wraps the dynamic stotram states to perform beautiful, smooth cross-fading transitions!
+                AnimatedContent(
+                    targetState = stotram,
+                    transitionSpec = {
+                        (fadeIn(animationSpec = tween(350)) + 
+                         scaleIn(initialScale = 0.95f, animationSpec = tween(350))) togetherWith
+                        (fadeOut(animationSpec = tween(250)) +
+                         scaleOut(targetScale = 0.95f, animationSpec = tween(250)))
+                    },
+                    label = "SadhanaInsightTransition"
+                ) { currentStotram ->
+                    val animTitle = currentStotram?.title ?: displayTitle
+                    val animSanskrit = currentStotram?.sanskritText ?: displaySanskrit
+                    val animTranslation = currentStotram?.translation ?: displayTranslation
+                    val animBenefits = currentStotram?.benefits ?: displayBenefits
+                    val animType = currentStotram?.type ?: displayType
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .weight(1f, fill = false)
+                            .verticalScroll(rememberScrollState()),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        // Card with Sacred Background
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .clip(RoundedCornerShape(16.dp))
+                                .background(androidx.compose.ui.graphics.Brush.linearGradient(gradientColors))
+                                .drawBehind {
+                                    val radius = size.minDimension / 1.3f
+                                    drawCircle(
+                                        color = Color(0xFFFFD700).copy(alpha = 0.08f),
+                                        radius = radius,
+                                        center = androidx.compose.ui.geometry.Offset(size.width * 0.9f, size.height * 0.2f),
+                                        style = Stroke(width = 1.5.dp.toPx())
+                                    )
+                                    drawCircle(
+                                        color = Color(0xFFFFD700).copy(alpha = 0.04f),
+                                        radius = radius * 0.7f,
+                                        center = androidx.compose.ui.geometry.Offset(size.width * 0.9f, size.height * 0.2f),
+                                        style = Stroke(width = 1.dp.toPx())
+                                    )
+                                }
+                                .padding(16.dp)
+                        ) {
+                            Column(
+                                verticalArrangement = Arrangement.spacedBy(8.dp)
+                            ) {
+                                // Badge & Next Button trigger
+                                Row(
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .clip(RoundedCornerShape(6.dp))
+                                            .background(Color.White.copy(alpha = 0.2f))
+                                            .padding(horizontal = 8.dp, vertical = 3.dp)
+                                    ) {
+                                        Text(
+                                            text = animType,
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            color = Color.White
+                                        )
+                                    }
+
+                                    // Refresh next button with click feedback & rotation
+                                    var rotationState by remember { mutableStateOf(0f) }
+                                    val animatedRotation by animateFloatAsState(
+                                        targetValue = rotationState,
+                                        animationSpec = spring(dampingRatio = Spring.DampingRatioMediumBouncy)
+                                    )
+
+                                    IconButton(
+                                        onClick = {
+                                            rotationState += 360f
+                                            customOffset += 1
+                                        },
+                                        modifier = Modifier
+                                            .size(36.dp)
+                                            .background(Color.White.copy(alpha = 0.15f), CircleShape)
+                                            .graphicsLayer(rotationZ = animatedRotation)
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Refresh,
+                                            contentDescription = "Next spiritual insight",
+                                            tint = Color.White,
+                                            modifier = Modifier.size(18.dp)
+                                        )
+                                    }
+                                }
+
+                                Spacer(modifier = Modifier.height(4.dp))
+
+                                // Title of Stotram/Mantra
+                                Text(
+                                    text = animTitle,
+                                    style = MaterialTheme.typography.titleMedium.copy(
+                                        fontWeight = FontWeight.Bold,
+                                        fontFamily = FontFamily.Serif
+                                    ),
+                                    color = Color.White
+                                )
+
+                                Spacer(modifier = Modifier.height(4.dp))
+
+                                // Sacred Sanskrit Quote Block
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clip(RoundedCornerShape(10.dp))
+                                        .background(Color.Black.copy(alpha = 0.2f))
+                                        .padding(12.dp)
+                                ) {
+                                    Text(
+                                        text = animSanskrit,
+                                        style = MaterialTheme.typography.bodyMedium.copy(
+                                            fontFamily = FontFamily.Serif,
+                                            fontWeight = FontWeight.Bold,
+                                            lineHeight = 22.sp,
+                                            textAlign = TextAlign.Center
+                                        ),
+                                        color = Color(0xFFFFE082),
+                                        modifier = Modifier.fillMaxWidth()
+                                    )
+                                }
+                            }
+                        }
+
+                        // Translation Section
+                        Column(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                text = "Sacred Translation",
+                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Text(
+                                text = animTranslation,
+                                style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 20.sp),
+                                color = MaterialTheme.colorScheme.onSurface
+                            )
+                        }
+
+                        // Benefits Section
+                        Column(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Text(
+                                text = "Divine Benefits & Sadhana Fruit",
+                                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
+                                color = MaterialTheme.colorScheme.secondary
+                            )
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Row(
+                                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                                verticalAlignment = Alignment.Top
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.CheckCircle,
+                                    contentDescription = "Benefit Icon",
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(16.dp).padding(top = 2.dp)
+                                )
+                                Text(
+                                    text = animBenefits,
+                                    style = MaterialTheme.typography.bodyMedium.copy(lineHeight = 20.sp),
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(12.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            // TTS Audio Play Button inside dialog
+                            Button(
+                                onClick = {
+                                    if (currentStotram != null) {
+                                        viewModel.speakStotram(currentStotram)
+                                    } else {
+                                        // Custom fallback speech
+                                        Toast.makeText(viewModel.getApplication(), "Playing Shanti Mantra chanting...", Toast.LENGTH_SHORT).show()
+                                    }
+                                },
+                                modifier = Modifier.weight(1f),
+                                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.PlayArrow,
+                                    contentDescription = "Play chant narration",
+                                    modifier = Modifier.size(18.dp)
+                                )
+                                Spacer(modifier = Modifier.width(6.dp))
+                                Text("Chant Narration", fontSize = 13.sp)
+                            }
+
+                            // Close button inside dialog
+                            OutlinedButton(
+                                onClick = onDismiss,
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Text("Dismiss", fontSize = 13.sp)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

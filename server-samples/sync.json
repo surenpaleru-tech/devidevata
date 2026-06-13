@@ -1,0 +1,396 @@
+{
+  "version": 1,
+  "categories": [
+    {
+      "id": 1,
+      "name": "Lord Ganesha",
+      "description": "The remover of obstacles, patron of arts and sciences, and the deva of intellect and wisdom.",
+      "thumbnail": "https://images.unsplash.com/photo-1567591974573-ef3c14bab113?auto=format&fit=crop&q=80&w=400",
+      "defaultColor": "#FFA726"
+    },
+    {
+      "id": 2,
+      "name": "Lord Shiva",
+      "description": "The Destroyer, the Transformer, the Supreme Yogic Adiyogi dwelling in cosmic Kailash.",
+      "thumbnail": "https://images.unsplash.com/photo-1609137144813-7d722de15c7e?auto=format&fit=crop&q=80&w=400",
+      "defaultColor": "#26C6DA"
+    },
+    {
+      "id": 3,
+      "name": "Lord Krishna",
+      "description": "The eighth avatar of Vishnu, counselor of the Bhagavad Gita, deity of compassion, love, and divine play.",
+      "thumbnail": "https://images.unsplash.com/photo-1597113366853-fc192b6149ef?auto=format&fit=crop&q=80&w=400",
+      "defaultColor": "#5C6BC0"
+    },
+    {
+      "id": 4,
+      "name": "Goddess Durga",
+      "description": "The protective mother goddess, vanquisher of Mahishasura, representing absolute feminine cosmic power (Shakti).",
+      "thumbnail": "https://images.unsplash.com/photo-1634818556600-47660ca4a7db?auto=format&fit=crop&q=80&w=400",
+      "defaultColor": "#EF5350"
+    },
+    {
+      "id": 5,
+      "name": "Lord Rama",
+      "description": "The Maryada Purushottam, ideal king, husband, moral ideal, and the seventh avatar of Vishnu.",
+      "thumbnail": "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&q=80&w=400",
+      "defaultColor": "#FFCA28"
+    },
+    {
+      "id": 6,
+      "name": "Lord Hanuman",
+      "description": "The embodiment of devotion (Bhakti), wisdom, cosmic strength, and loyal commander of Lord Rama.",
+      "thumbnail": "https://images.unsplash.com/photo-1615818499660-30bb541611aa?auto=format&fit=crop&q=80&w=400",
+      "defaultColor": "#FF7043"
+    },
+    {
+      "id": 7,
+      "name": "Goddess Saraswati",
+      "description": "The goddess of learning, music, creative arts, speech, and cosmic wisdom, holding the divine Veena.",
+      "thumbnail": "https://images.unsplash.com/photo-1632517594911-30ec8b88dbb1?auto=format&fit=crop&q=80&w=400",
+      "defaultColor": "#E0F2F1"
+    }
+  ],
+  "images": [
+    {
+      "id": 101,
+      "categoryId": 1,
+      "title": "Golden Siddhivinayak Ganesha",
+      "url": "https://images.unsplash.com/photo-1567591974573-ef3c14bab113?auto=format&fit=crop&q=100&w=1200",
+      "thumbUrl": "https://images.unsplash.com/photo-1567591974573-ef3c14bab113?auto=format&fit=crop&q=80&w=400",
+      "credit": "Unsplash - Siddhi",
+      "description": "A magnificent golden mudra Ganesha murti symbolizing intellectual heights, focus, and obstacle extraction."
+    },
+    {
+      "id": 102,
+      "categoryId": 1,
+      "title": "Meditation Ganapati under Sacred Arch",
+      "url": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&q=100&w=1200",
+      "thumbUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&q=80&w=400",
+      "credit": "Unsplash - Ganapati",
+      "description": "Finely-crafted temple stone structure depiction of Sri Vinayaka in absolute yogic stasis."
+    },
+    {
+      "id": 201,
+      "categoryId": 2,
+      "title": "Supreme Adiyogi Lord Shiva",
+      "url": "https://images.unsplash.com/photo-1609137144813-7d722de15c7e?auto=format&fit=crop&q=100&w=1200",
+      "thumbUrl": "https://images.unsplash.com/photo-1609137144813-7d722de15c7e?auto=format&fit=crop&q=80&w=400",
+      "credit": "Unsplash - Adiyogi",
+      "description": "Vedic depiction of Adiyogi Lord Shiva meditating, holding the sacred trishool of truth."
+    },
+    {
+      "id": 202,
+      "categoryId": 2,
+      "title": "Dhyana Shiva overlooking Ganges",
+      "url": "https://images.unsplash.com/photo-1594732159032-15967f631169?auto=format&fit=crop&q=100&w=1200",
+      "thumbUrl": "https://images.unsplash.com/photo-1594732159032-15967f631169?auto=format&fit=crop&q=80&w=400",
+      "credit": "Unsplash - Shiv",
+      "description": "Celestial blue depiction of Shiva holding his damru, showing the crescent moon on his head."
+    },
+    {
+      "id": 301,
+      "categoryId": 3,
+      "title": "Lord Krishna with Mystic Murali",
+      "url": "https://images.unsplash.com/photo-1597113366853-fc192b6149ef?auto=format&fit=crop&q=100&w=1200",
+      "thumbUrl": "https://images.unsplash.com/photo-1597113366853-fc192b6149ef?auto=format&fit=crop&q=80&w=400",
+      "credit": "Unsplash - Krishna",
+      "description": "Shyamasundara Krishna playing the divine flute, adorned with an elegant peacock feather."
+    },
+    {
+      "id": 302,
+      "categoryId": 3,
+      "title": "Radha Krishna Divine Monsoon Love",
+      "url": "https://images.unsplash.com/photo-1631527375253-df9ce9a263ba?auto=format&fit=crop&q=100&w=1200",
+      "thumbUrl": "https://images.unsplash.com/photo-1631527375253-df9ce9a263ba?auto=format&fit=crop&q=80&w=400",
+      "credit": "Unsplash - Sri Radha",
+      "description": "A traditional artistic painting portraying the celestial bond between Sri Radha and Bhagavan Krishna."
+    },
+    {
+      "id": 401,
+      "categoryId": 4,
+      "title": "Ma Durga Goddess Mahishasuramardini",
+      "url": "https://images.unsplash.com/photo-1634818556600-47660ca4a7db?auto=format&fit=crop&q=100&w=1200",
+      "thumbUrl": "https://images.unsplash.com/photo-1634818556600-47660ca4a7db?auto=format&fit=crop&q=80&w=400",
+      "credit": "Unsplash - Durga Devi",
+      "description": "Ma Durga seated on her sacred lion, wielding standard weapons of light, vanquisher of demonic egos."
+    },
+    {
+      "id": 501,
+      "categoryId": 5,
+      "title": "Ayodhya Sri Rama with Kodanda Bow",
+      "url": "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&q=100&w=1200",
+      "thumbUrl": "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&q=80&w=400",
+      "credit": "Unsplash - Ramachandra",
+      "description": "A magnificent depiction of Ram Lalla holding his cosmic Kodanda bow, radiating gentle righteousness."
+    },
+    {
+      "id": 601,
+      "categoryId": 6,
+      "title": "Sankat Mochan Lord Hanuman",
+      "url": "https://images.unsplash.com/photo-1615818499660-30bb541611aa?auto=format&fit=crop&q=100&w=1200",
+      "thumbUrl": "https://images.unsplash.com/photo-1615818499660-30bb541611aa?auto=format&fit=crop&q=80&w=400",
+      "credit": "Unsplash - Bajrangbali",
+      "description": "Hanuman in deep meditative prayer chanting 'Ram Ram', radiating humility and limitless power."
+    },
+    {
+      "id": 701,
+      "categoryId": 7,
+      "title": "Veenavadini Goddess Saraswati",
+      "url": "https://images.unsplash.com/photo-1632517594911-30ec8b88dbb1?auto=format&fit=crop&q=100&w=1200",
+      "thumbUrl": "https://images.unsplash.com/photo-1632517594911-30ec8b88dbb1?auto=format&fit=crop&q=80&w=400",
+      "credit": "Unsplash - Saraswati Devi",
+      "description": "Goddess of arts holding the spiritual Veena of intellectual harmony, seated on her pristine white swan of discrimination."
+    }
+  ],
+  "stotrams": [
+    {
+      "id": 1001,
+      "categoryId": 1,
+      "type": "MANTRA",
+      "title": "Ganesha Vakratunda Mahakaya Sloka",
+      "sanskritText": "वक्रतुण्ड महाकाय सूर्यकोटि समप्रभ ।\nनिर्विघ्नं कुरु मे देव सर्वकार्येषु सर्वदा ॥",
+      "translation": "O Lord Ganesha, of curved trunk and massive body, whose splendor is equal to millions of suns, please make all my works free of obstacles, always.",
+      "benefits": "Removes blockages, grants material and spiritual success, and establishes peace of mind prior to new tasks.",
+      "language": "Sanskrit"
+    },
+    {
+      "id": 1002,
+      "categoryId": 1,
+      "type": "AARTI",
+      "title": "Jai Ganesh Deva Aarti",
+      "sanskritText": "जय गणेश जय गणेश जय गणेश देवा ।\nमाता जाकी पार्वती पिता महादेवा ॥\nएक दन्त दयावन्त चार भुजाधारी ।\nमाथे पर तिलक सोहे मूस की सवारी ॥",
+      "translation": "Victory to Lord Ganesha! Whose mother is Goddess Parvati, and whose father is Lord Shiva. He has a single tusk, resides with mercy, possesses four arms, wears a vermilion tilak, and rides a humble mouse.",
+      "benefits": "Brings joy, auspicious vibes, eliminates household negativity, and increases devotional love.",
+      "language": "Sanskrit"
+    },
+    {
+      "id": 2001,
+      "categoryId": 2,
+      "type": "STOTRAM",
+      "title": "Shiva Tandava Stotram (Excerpt)",
+      "sanskritText": "जटाटवीगलज्जलप्रवाहपावितस्थले\nगलेऽवलम्ब्य लम्बितां भुजङ्गतुङ्गमालिकाम् ।\nडमड्डमड्डमड्डमन्निनादवड्डमर्वयं\nचकार चण्डताण्डवं तनोतु नः शिवः शिवम् ॥",
+      "translation": "With his neck consecrated by the flow of water trickling down from his matted forest-like hair, holding a massive snake wrapped around like a garland, and playing his damru to the rhythm of 'damat-damat-damat', Lord Shiva performed his intense cosmic Tandava dance. May he expand our auspiciousness.",
+      "benefits": "Unlocks incredible inner power, builds determination, focuses intellect, and removes fear of death.",
+      "language": "Sanskrit"
+    },
+    {
+      "id": 2002,
+      "categoryId": 2,
+      "type": "MANTRA",
+      "title": "Maha Mrityunjaya Mantra",
+      "sanskritText": "ॐ त्र्यम्बकं यजामहे सुगन्धिं पुष्टिवर्धनम् ।\nउर्वारुकमिव बन्धनान्मृत्योर्मुक्षीय माऽमृतात् ॥",
+      "translation": "We worship the three-eyed Lord Shiva, who is fragrant and nurtures all beings. Just as a ripe cucumber is liberated from its stalk's bondage, may he free us from death and guide us to immortality.",
+      "benefits": "Ensures physical health, longevity, protects from accidents, and releases mental tension and anxiety.",
+      "language": "Sanskrit"
+    },
+    {
+      "id": 3001,
+      "categoryId": 3,
+      "type": "STOTRAM",
+      "title": "Sri Madhurashtakam by Vallabhacharya",
+      "sanskritText": "अधरं मधुरं वदनं मधुरं नयनं मधुरं हसितं मधुरम् ।\nहृदयं मधुरं गमनं मधुरं मधुराधिपतेरखिलं मधुरम् ॥",
+      "translation": "His lips are sweet, His face is sweet, His eyes are sweet, His laugh is sweet, His heart is sweet, His walk is sweet—everything is sweet about the Lord of sweetness.",
+      "benefits": "Fills the heart with pure devotional bliss, heals emotional grief, and develops extreme compassion.",
+      "language": "Sanskrit"
+    },
+    {
+      "id": 4001,
+      "categoryId": 4,
+      "type": "STOTRAM",
+      "title": "Mahishasura Mardini Stotram (Verse 1)",
+      "sanskritText": "अयि गिरिनन्दिनि नन्दितमेदिनि विश्वविनोदिनि नन्द नुते\nगिरिवरविन्ध्यशिरोऽधिनिवासिनि विष्णुविलासिनि जिष्णु नुते ।\nभगवति हे शितिकण्ठकुटुम्बिनि भूरिकुटुम्बिनि भूरि कृते\nजय जय हे महिषासुरमर्दिनि रम्यकपर्दिनि शैलसुते ॥",
+      "translation": "O daughter of the mountain, who makes the whole earth joyful, who delights the universe, who is praised by Nanda, who resides on the Vindhya peaks, who causes Vishnu to smile, who is praised by Indra! O Goddess, consort of blue-necked Shiva, victorious over Mahishasura, victory to You, daughter of the mountain!",
+      "benefits": "Manifests courage, eliminates outer and inner enemies like jealousy and greed, and protects the house.",
+      "language": "Sanskrit"
+    },
+    {
+      "id": 5001,
+      "categoryId": 5,
+      "type": "STOTRAM",
+      "title": "Sri Rama Vandana - Ramachandra Kripalu Bhajuman",
+      "sanskritText": "श्रीरामचन्द्र कृपालु भजु मन हरण भवभय दारुणम् ।\nनवकंज लोचन कंज मुख कर कंज पद कंजारुणम् ॥",
+      "translation": "O my mind! Worship the compassionate Lord Ramachandra, who removes the intense suffering of worldly existence. His eyes are like newly blown lotuses, and so is his face, hands, and feet.",
+      "benefits": "Reduces negative planetary influences, improves moral character, and brings harmony to family life.",
+      "language": "Sanskrit"
+    },
+    {
+      "id": 6001,
+      "categoryId": 6,
+      "type": "STOTRAM",
+      "title": "Sri Hanuman Chalisa (Opening Verses)",
+      "sanskritText": "श्रीगुरु चरन सरोज रज निज मनु मुकुरु सुधारि ।\nबरनऊ रघुबर बिमल जसु जो दायकु फल चारि ॥\nबुद्धिहीन तनु जानिके सुमिरौ पवन कुमार ।\nबल बुधि बिद्या देहु मोहि हरहु कलेस बिकार ॥",
+      "translation": "Cleansing the mirror of my mind with the dust from the lotus feet of the Guru, I describe the pure glory of Lord Rama, which bestows the four fruits of life. Knowing myself to be ignorant, I remember Hanuman, the son of the Wind God. Give me strength, intellect, and wisdom, and destroy my suffering and impurities.",
+      "benefits": "Grants physical strength, courage, absolute protection from spirits or dark thoughts, and helps students in studies.",
+      "language": "Sanskrit"
+    },
+    {
+      "id": 7001,
+      "categoryId": 7,
+      "type": "MANTRA",
+      "title": "Saraswati Vidya Mantra",
+      "sanskritText": "सरस्वती नमस्तुभ्यं वरदे कामरूपिणी ।\nविद्यारम्भं करिष्यामी सिद्धिर्भवतु मे सदा ॥",
+      "translation": "O Goddess Saraswati, my humble salutations to you. You are the fulfiller of all wishes. As I begin my educational study/learning, may there always be success for me.",
+      "benefits": "Expands retention memory, opens intellectual pathways for research or arts, and grants clear speech.",
+      "language": "Sanskrit"
+    }
+  ],
+  "temples": [
+    {
+      "id": 50001,
+      "categoryId": 1,
+      "name": "Prabhadevi Siddhivinayak Temple",
+      "location": "Mumbai, Maharashtra",
+      "history": "Established in November 1801, the shrine was initially a small 3.6m x 3.6m stone temple funded by a rich agri woman named Deubai Patil to bless childless women with children.",
+      "significance": "The trunk of Ganesha is tilted to the right side (Siddhi-Vinayaka), which requires highly rigorous rituals to worship. The wooden doors are carved with images of Ashtavinayak.",
+      "timing": "05:30 AM - 10:00 PM Daily",
+      "imageUrl": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      "id": 50002,
+      "categoryId": 2,
+      "name": "Kashi Vishwanath Temple",
+      "location": "Varanasi, Uttar Pradesh",
+      "history": "One of the most sacred Jyotirlingas, situated on the western bank of the holy Ganges. It was destroyed and rebuilt multiple times; the current dome structure was built by Queen Ahilyabai Holkar in 1780.",
+      "significance": "A single darshan of Vishveshvara Linga frees a soul from the cycle of rebirth (Moksha). The spires are plated with over 800 kilograms of pure gold donated by Maharaja Ranjit Singh.",
+      "timing": "04:00 AM - 11:00 PM Daily",
+      "imageUrl": "https://images.unsplash.com/photo-1561361513-2d000a45f1d2?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      "id": 50003,
+      "categoryId": 3,
+      "name": "Banke Bihari Mandir",
+      "location": "Vrindavan, Uttar Pradesh",
+      "history": "Established by Swami Haridas, a spiritual devotee and guru of Tansen. Culturally renowned for holding the self-manifested dark black stone deity of Banke Bihari who appeared through the intense meditation of Haridas.",
+      "significance": "Instead of bells, chants of 'Radhe Radhe' echo. A curtain is drawn before the deity every few minutes to prevent visitors from becoming faintingly intoxicated by his gorgeous divine eyes.",
+      "timing": "07:45 AM - 12:00 PM, 05:30 PM - 09:30 PM",
+      "imageUrl": "https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      "id": 50004,
+      "categoryId": 4,
+      "name": "Dakshineswar Kali Temple",
+      "location": "Kolkata, West Bengal",
+      "history": "Built in 1855 by philanthropist Queen Rasmani. It is world-renowned for being the sacred spiritual birthplace where Sri Ramakrishna Paramahamsa realized Goddess Bhavatarini.",
+      "significance": "The architectural layout is a nine-spired Navaratna style standing on a high platform with twelve shrines dedicated to Shiva along the river ghats.",
+      "timing": "06:00 AM - 12:30 PM, 03:30 PM - 09:00 PM",
+      "imageUrl": "https://images.unsplash.com/photo-1598062548091-a6fb6ac88b89?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      "id": 50005,
+      "categoryId": 5,
+      "name": "Ayodhya Ram Janmabhoomi Mandir",
+      "location": "Ayodhya, Uttar Pradesh",
+      "history": "The long-awaited grand temple constructed at the sacred birthplace of Maryada Purushottam Bhagavan Ram, consecrated in a grand historic ceremony on January 22, 2024.",
+      "significance": "Built entirely in the traditional Solanki Nagara style of architecture without using any iron or steel, utilizing pink sandstone from Rajasthan. Fused with rich carvings of puranic scriptures.",
+      "timing": "06:30 AM - 09:30 PM Daily",
+      "imageUrl": "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      "id": 50006,
+      "categoryId": 6,
+      "name": "Jakhoo Hanuman Temple",
+      "location": "Shimla, Himachal Pradesh",
+      "history": "According to the sacred Ramayana, Lord Hanuman rested here on the Jakhoo peak while searching for the life-saving Sanjeevani herb for Lakshmana.",
+      "significance": "Stands at an impressive altitude of 8,000 feet, featuring a colossal 108-foot saffron-colored Hanuman statue that towers majestically above the Himalayan deodar trees.",
+      "timing": "07:00 AM - 08:00 PM Daily",
+      "imageUrl": "https://images.unsplash.com/photo-1620121692029-d088224ddc74?auto=format&fit=crop&q=80&w=600"
+    },
+    {
+      "id": 50007,
+      "categoryId": 7,
+      "name": "Gnana Saraswati Temple",
+      "location": "Basar, Telangana",
+      "history": "Situated on the banks of Godavari, this is one of the rare historical temples dedicated to Goddess Saraswati. Sage Vyasa is said to have meditated here and installed clay representations.",
+      "significance": "Mothers bring children here for the 'Akshara Abhyasam' learning ritual of writing initial letters in rice; it initializes the child's academic and creative path with wisdom.",
+      "timing": "04:30 AM - 12:30 PM, 02:00 PM - 08:30 PM",
+      "imageUrl": "https://images.unsplash.com/photo-1632517594911-30ec8b88dbb1?auto=format&fit=crop&q=80&w=600"
+    }
+  ],
+  "festivals": [
+    {
+      "id": 90001,
+      "title": "Ganesh Chaturthi",
+      "dateStr": "2026-09-15",
+      "dayOfWeek": "Tuesday",
+      "Month": "Bhadrapada",
+      "tithi": "Shukla Chaturthi",
+      "nakshatra": "Hasta",
+      "deityCategoryId": 1,
+      "description": "The grand celebration marking the clay incarnation arrival of Ganesha, the remover of physical and mental barriers.",
+      "rituals": "1. Installation of eco-friendly clay Ganesha idol on high altar.\n2. Shodashopachara core puja (16 steps of honoring).\n3. Offering of 21 fresh steamed Modak sweets.\n4. Recitation of Ganesha Upanishad and daily aarti waves."
+    },
+    {
+      "id": 90002,
+      "title": "Maha Shivaratri",
+      "dateStr": "2026-03-05",
+      "dayOfWeek": "Thursday",
+      "Month": "Phalguna",
+      "tithi": "Krishna Chaturdashi",
+      "nakshatra": "Shatabhisha / Shatataraka",
+      "deityCategoryId": 2,
+      "description": "The Great Night of Lord Shiva commemorating his cosmic dance of dissolution and his sacred marriage with Goddess Parvati.",
+      "rituals": "1. Solid night-long wakeful meditation (Jaagran).\n2. Continuous chanting of 'Om Namah Shivaya'.\n3. Four rounds of offering milk and honey over the local Shiva Lingam.\n4. Clean fasting till early next morning sun rises."
+    },
+    {
+      "id": 90003,
+      "title": "Krishna Janmashtami",
+      "dateStr": "2026-08-20",
+      "dayOfWeek": "Thursday",
+      "Month": "Bhadrapada / Shravan",
+      "tithi": "Krishna Ashtami",
+      "nakshatra": "Rohini",
+      "deityCategoryId": 3,
+      "description": "Celebrates the midnight birth event of Bhagavan Krishna, who appeared in the prison cell of Mathura to establish righteousness.",
+      "rituals": "1. Placing the infant Krishna (Ladoo Gopal) in a tiny floral swing.\n2. Midnight bathing of the deity in milk, ghee, and rose water (Abhishekam).\n3. Preparation of a collection of 56 diverse food offerings (Chhappan Bhog).\n4. Fasting and singing enchanting Bhajans."
+    },
+    {
+      "id": 90004,
+      "title": "Durga Puja & Vijayadashami",
+      "dateStr": "2026-10-11",
+      "dayOfWeek": "Sunday",
+      "Month": "Ashvin",
+      "tithi": "Shukla Dashami",
+      "nakshatra": "Shravana",
+      "deityCategoryId": 4,
+      "description": "Commemorates Goddess Durga defeating the buffalo demon King Mahishasura after nine magnificent nights of combat (Navaratri).",
+      "rituals": "1. Chanting Vedic Sanskrit verses from Devi Mahatmyam scriptures.\n2. Dhunuchi traditional dance with incense burner on rhythmic drums.\n3. Distribution of Prasad to neighbors, dressing in clean traditional attire.\n4. Immersion ceremony of Durga clay idols with sweet prayers."
+    },
+    {
+      "id": 90005,
+      "title": "Sri Rama Navami",
+      "dateStr": "2026-04-12",
+      "dayOfWeek": "Sunday",
+      "Month": "Chaitra",
+      "tithi": "Shukla Navami",
+      "nakshatra": "Punarvasu",
+      "deityCategoryId": 5,
+      "description": "The auspicious birth anniversary celebration of Maryada Purushottam Lord Rama, representing pure cosmic truth and dharma.",
+      "rituals": "1. Reading of sacred episodes from Valmiki Ramayana or Ramcharitmanas.\n2. Placing sacred Rama Darbar photos on yellow satin clothes.\n3. Offering Panakam (refreshing cardamom-jaggery juice) to temple visitors.\n4. Performing a quiet Rama Taraka Yajnam fire ritual."
+    },
+    {
+      "id": 90006,
+      "title": "Hanuman Jayanti",
+      "dateStr": "2026-04-18",
+      "dayOfWeek": "Saturday",
+      "Month": "Chaitra",
+      "tithi": "Shukla Purnima",
+      "nakshatra": "Chitra",
+      "deityCategoryId": 6,
+      "description": "Marks the birth anniversary of Bajrangbali Hanuman, who is a lifetime celibate (Brahmachari) and embodiment of deep love.",
+      "rituals": "1. Worshipping Hanuman with offering of bright vermilion (Sindoor).\n2. Gathering a group to sing 11 dynamic recitations of the Hanuman Chalisa.\n3. Offering red-saffron Boondi sweet items to the deity.\n4. Circumambulating the temple (Pradakshina) while reciting Lord Rama chants."
+    },
+    {
+      "id": 90007,
+      "title": "Vasant Panchami",
+      "dateStr": "2026-01-22",
+      "dayOfWeek": "Thursday",
+      "Month": "Magha",
+      "tithi": "Shukla Panchami",
+      "nakshatra": "Uttara Bhadrapada",
+      "deityCategoryId": 7,
+      "description": "Welcoming the beautiful spring season and honoring Goddess Saraswati, the patroness of all wisdom and vocal sciences.",
+      "rituals": "1. Keeping school textbooks, notebooks, writing pens, or musical instruments at the feet of Saraswati.\n2. Wearing bright yellow colored clothes representing the auspicious mustard fields.\n3. Preparing sweet saffron-infused yellow sweet rice (Kesari Baath).\n4. Chanting Saraswati Vandana and beginning new study projects."
+    }
+  ]
+}

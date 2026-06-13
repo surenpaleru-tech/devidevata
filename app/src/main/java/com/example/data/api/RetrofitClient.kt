@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
 data class ServerConfig(
     @Json(name = "activeModel") val activeModel: String = "gemini-3.5-flash",
     @Json(name = "llmTuningPrompt") val llmTuningPrompt: String = "You are an advanced spiritual AI Vedic scholar. Answer questions about Indian mythology, scriptures, gods, temples, and stotrams based on authentic Puranas and Vedas. Keep answers insightful, warm, and highly informative.",
-    @Json(name = "imgServerBaseUrl") val imgServerBaseUrl: String = "https://api.devidevata.com/",
+    @Json(name = "imgServerBaseUrl") val imgServerBaseUrl: String = com.example.data.util.Obfuscator.getDecodedUrl(),
     @Json(name = "pushAlertMessage") val pushAlertMessage: String = "Maha Shivaratri worship: Fasting, chanting Om Namah Shivaya and Rudra Shaktipat.",
     @Json(name = "llmOverrideUrl") val llmOverrideUrl: String? = null // Admin can route chat requests directly to Cloud custom API
 )
@@ -54,7 +54,8 @@ data class RemoteStotramPuja(
     val title: String,
     val sanskritText: String,
     val translation: String,
-    val benefits: String
+    val benefits: String,
+    val language: String? = null
 )
 
 @JsonClass(generateAdapter = true)
@@ -143,6 +144,22 @@ interface DeviDevataApiService {
     // 2. Full synchronization from Cloud Server
     @GET
     suspend fun syncAllData(@Url url: String): SyncResponse
+
+    // 2b. Granular synchronization of individual JSON files
+    @GET
+    suspend fun getCategoriesList(@Url url: String): List<RemoteGodCategory>
+
+    @GET
+    suspend fun getImagesList(@Url url: String): List<RemoteGodImage>
+
+    @GET
+    suspend fun getStotramsList(@Url url: String): List<RemoteStotramPuja>
+
+    @GET
+    suspend fun getTemplesList(@Url url: String): List<RemoteTempleInfo>
+
+    @GET
+    suspend fun getFestivalsList(@Url url: String): List<RemoteFestival>
 
     // 3. Direct Gemini API call (Standard REST endpoint)
     @POST("v1beta/models/{model}:generateContent")

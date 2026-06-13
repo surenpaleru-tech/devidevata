@@ -1,0 +1,72 @@
+[
+  {
+    "id": 50001,
+    "categoryId": 1,
+    "name": "Prabhadevi Siddhivinayak Temple",
+    "location": "Mumbai, Maharashtra",
+    "history": "Established in November 1801, the shrine was initially a small 3.6m x 3.6m stone temple funded by a rich agri woman named Deubai Patil to bless childless women with children.",
+    "significance": "The trunk of Ganesha is tilted to the right side (Siddhi-Vinayaka), which requires highly rigorous rituals to worship. The wooden doors are carved with images of Ashtavinayak.",
+    "timing": "05:30 AM - 10:00 PM Daily",
+    "imageUrl": "https://images.unsplash.com/photo-1590050752117-238cb0fb12b1?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    "id": 50002,
+    "categoryId": 2,
+    "name": "Kashi Vishwanath Temple",
+    "location": "Varanasi, Uttar Pradesh",
+    "history": "One of the most sacred Jyotirlingas, situated on the western bank of the holy Ganges. It was destroyed and rebuilt multiple times; the current dome structure was built by Queen Ahilyabai Holkar in 1780.",
+    "significance": "A single darshan of Vishveshvara Linga frees a soul from the cycle of rebirth (Moksha). The spires are plated with over 800 kilograms of pure gold donated by Maharaja Ranjit Singh.",
+    "timing": "04:00 AM - 11:00 PM Daily",
+    "imageUrl": "https://images.unsplash.com/photo-1561361513-2d000a45f1d2?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    "id": 50003,
+    "categoryId": 3,
+    "name": "Banke Bihari Mandir",
+    "location": "Vrindavan, Uttar Pradesh",
+    "history": "Established by Swami Haridas, a spiritual devotee and guru of Tansen. Culturally renowned for holding the self-manifested dark black stone deity of Banke Bihari who appeared through the intense meditation of Haridas.",
+    "significance": "Instead of bells, chants of 'Radhe Radhe' echo. A curtain is drawn before the deity every few minutes to prevent visitors from becoming faintingly intoxicated by his gorgeous divine eyes.",
+    "timing": "07:45 AM - 12:00 PM, 05:30 PM - 09:30 PM",
+    "imageUrl": "https://images.unsplash.com/photo-1545128485-c400e7702796?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    "id": 50004,
+    "categoryId": 4,
+    "name": "Dakshineswar Kali Temple",
+    "location": "Kolkata, West Bengal",
+    "history": "Built in 1855 by philanthropist Queen Rasmani. It is world-renowned for being the sacred spiritual birthplace where Sri Ramakrishna Paramahamsa realized Goddess Bhavatarini.",
+    "significance": "The architectural layout is a nine-spired Navaratna style standing on a high platform with twelve shrines dedicated to Shiva along the river ghats.",
+    "timing": "06:00 AM - 12:30 PM, 03:30 PM - 09:00 PM",
+    "imageUrl": "https://images.unsplash.com/photo-1598062548091-a6fb6ac88b89?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    "id": 50005,
+    "categoryId": 5,
+    "name": "Ayodhya Ram Janmabhoomi Mandir",
+    "location": "Ayodhya, Uttar Pradesh",
+    "history": "The long-awaited grand temple constructed at the sacred birthplace of Maryada Purushottam Bhagavan Ram, consecrated in a historic grand ceremony on January 22, 2024.",
+    "significance": "Built entirely in the traditional Solanki Nagara style of architecture without using any iron or steel, utilizing pink sandstone from Rajasthan. Fused with rich carvings of puranic scriptures.",
+    "timing": "06:30 AM - 09:30 PM Daily",
+    "imageUrl": "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    "id": 50006,
+    "categoryId": 6,
+    "name": "Jakhoo Hanuman Temple",
+    "location": "Shimla, Himachal Pradesh",
+    "history": "According to the sacred Ramayana, Lord Hanuman rested here on the Jakhoo peak while searching for the life-saving Sanjeevani herb for Lakshmana.",
+    "significance": "Stands at an impressive altitude of 8,000 feet, featuring a colossal 108-foot saffron-colored Hanuman statue that towers majestically above the Himalayan deodar trees.",
+    "timing": "07:00 AM - 08:00 PM Daily",
+    "imageUrl": "https://images.unsplash.com/photo-1620121692029-d088224ddc74?auto=format&fit=crop&q=80&w=600"
+  },
+  {
+    "id": 50007,
+    "categoryId": 7,
+    "name": "Gnana Saraswati Temple",
+    "location": "Basar, Telangana",
+    "history": "Situated on the banks of Godavari, this is one of the rare historical temples dedicated to Goddess Saraswati. Sage Vyasa is said to have meditated here and installed clay representations.",
+    "significance": "Mothers bring children here for the 'Akshara Abhyasam' learning ritual of writing initial letters in rice; it initializes the child's academic and creative path with wisdom.",
+    "timing": "04:30 AM - 12:30 PM, 02:00 PM - 08:30 PM",
+    "imageUrl": "https://images.unsplash.com/photo-1632517594911-30ec8b88dbb1?auto=format&fit=crop&q=80&w=600"
+  }
+]

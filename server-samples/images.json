@@ -1,0 +1,92 @@
+[
+  {
+    "id": 101,
+    "categoryId": 1,
+    "title": "Golden Siddhivinayak Ganesha",
+    "url": "https://images.unsplash.com/photo-1567591974573-ef3c14bab113?auto=format&fit=crop&q=100&w=1200",
+    "thumbUrl": "https://images.unsplash.com/photo-1567591974573-ef3c14bab113?auto=format&fit=crop&q=80&w=400",
+    "credit": "Unsplash - Siddhi",
+    "description": "A magnificent golden mudra Ganesha murti symbolizing intellectual heights, focus, and obstacle extraction."
+  },
+  {
+    "id": 102,
+    "categoryId": 1,
+    "title": "Meditation Ganapati under Sacred Arch",
+    "url": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&q=100&w=1200",
+    "thumbUrl": "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&q=80&w=400",
+    "credit": "Unsplash - Ganapati",
+    "description": "Finely-crafted temple stone structure depiction of Sri Vinayaka in absolute yogic stasis."
+  },
+  {
+    "id": 201,
+    "categoryId": 2,
+    "title": "Supreme Adiyogi Lord Shiva",
+    "url": "https://images.unsplash.com/photo-1609137144813-7d722de15c7e?auto=format&fit=crop&q=100&w=1200",
+    "thumbUrl": "https://images.unsplash.com/photo-1609137144813-7d722de15c7e?auto=format&fit=crop&q=80&w=400",
+    "credit": "Unsplash - Adiyogi",
+    "description": "Vedic depiction of Adiyogi Lord Shiva meditating, holding the sacred trishool of truth."
+  },
+  {
+    "id": 202,
+    "categoryId": 2,
+    "title": "Dhyana Shiva overlooking Ganges",
+    "url": "https://images.unsplash.com/photo-1594732159032-15967f631169?auto=format&fit=crop&q=100&w=1200",
+    "thumbUrl": "https://images.unsplash.com/photo-1594732159032-15967f631169?auto=format&fit=crop&q=80&w=400",
+    "credit": "Unsplash - Shiv",
+    "description": "Celestial blue depiction of Shiva holding his damru, showing the crescent moon on his head."
+  },
+  {
+    "id": 301,
+    "categoryId": 3,
+    "title": "Lord Krishna with Mystic Murali",
+    "url": "https://images.unsplash.com/photo-1597113366853-fc192b6149ef?auto=format&fit=crop&q=100&w=1200",
+    "thumbUrl": "https://images.unsplash.com/photo-1597113366853-fc192b6149ef?auto=format&fit=crop&q=80&w=400",
+    "credit": "Unsplash - Krishna",
+    "description": "Shyamasundara Krishna playing the divine flute, adorned with an elegant peacock feather."
+  },
+  {
+    "id": 302,
+    "categoryId": 3,
+    "title": "Radha Krishna Divine Monsoon Love",
+    "url": "https://images.unsplash.com/photo-1631527375253-df9ce9a263ba?auto=format&fit=crop&q=100&w=1200",
+    "thumbUrl": "https://images.unsplash.com/photo-1631527375253-df9ce9a263ba?auto=format&fit=crop&q=80&w=400",
+    "credit": "Unsplash - Sri Radha",
+    "description": "A traditional artistic painting portraying the celestial bond between Sri Radha and Bhagavan Krishna."
+  },
+  {
+    "id": 401,
+    "categoryId": 4,
+    "title": "Ma Durga Goddess Mahishasuramardini",
+    "url": "https://images.unsplash.com/photo-1634818556600-47660ca4a7db?auto=format&fit=crop&q=100&w=1200",
+    "thumbUrl": "https://images.unsplash.com/photo-1634818556600-47660ca4a7db?auto=format&fit=crop&q=80&w=400",
+    "credit": "Unsplash - Durga Devi",
+    "description": "Ma Durga seated on her sacred lion, wielding standard weapons of light, vanquisher of demonic egos."
+  },
+  {
+    "id": 501,
+    "categoryId": 5,
+    "title": "Ayodhya Sri Rama with Kodanda Bow",
+    "url": "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&q=100&w=1200",
+    "thumbUrl": "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&q=80&w=400",
+    "credit": "Unsplash - Ramachandra",
+    "description": "A magnificent depiction of Ram Lalla holding his cosmic Kodanda bow, radiating gentle righteousness."
+  },
+  {
+    "id": 601,
+    "categoryId": 6,
+    "title": "Sankat Mochan Lord Hanuman",
+    "url": "https://images.unsplash.com/photo-1615818499660-30bb541611aa?auto=format&fit=crop&q=100&w=1200",
+    "thumbUrl": "https://images.unsplash.com/photo-1615818499660-30bb541611aa?auto=format&fit=crop&q=80&w=400",
+    "credit": "Unsplash - Bajrangbali",
+    "description": "Hanuman in deep meditative prayer chanting 'Ram Ram', radiating humility and limitless power."
+  },
+  {
+    "id": 701,
+    "categoryId": 7,
+    "title": "Veenavadini Goddess Saraswati",
+    "url": "https://images.unsplash.com/photo-1632517594911-30ec8b88dbb1?auto=format&fit=crop&q=100&w=1200",
+    "thumbUrl": "https://images.unsplash.com/photo-1632517594911-30ec8b88dbb1?auto=format&fit=crop&q=80&w=400",
+    "credit": "Unsplash - Saraswati Devi",
+    "description": "Goddess of arts holding the spiritual Veena of intellectual harmony, seated on her pristine white swan of discrimination."
+  }
+]

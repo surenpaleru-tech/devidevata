@@ -78,6 +78,9 @@ interface DivineDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFestivals(festivals: List<Festival>)
 
+    @Query("DELETE FROM festivals WHERE id = 507")
+    suspend fun deleteDemoFestival()
+
     @Query("DELETE FROM festivals")
     suspend fun clearFestivals()
 }

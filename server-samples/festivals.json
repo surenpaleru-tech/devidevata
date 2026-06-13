@@ -1,0 +1,86 @@
+[
+  {
+    "id": 90001,
+    "title": "Ganesh Chaturthi",
+    "dateStr": "2026-09-15",
+    "dayOfWeek": "Tuesday",
+    "Month": "Bhadrapada",
+    "tithi": "Shukla Chaturthi",
+    "nakshatra": "Hasta",
+    "deityCategoryId": 1,
+    "description": "The grand celebration marking the clay incarnation arrival of Ganesha, the remover of physical and mental barriers.",
+    "rituals": "1. Installation of eco-friendly clay Ganesha idol on high altar.\n2. Shodashopachara core puja (16 steps of honoring).\n3. Offering of 21 fresh steamed Modak sweets.\n4. Recitation of Ganesha Upanishad and daily aarti waves."
+  },
+  {
+    "id": 90002,
+    "title": "Maha Shivaratri",
+    "dateStr": "2026-03-05",
+    "dayOfWeek": "Thursday",
+    "Month": "Phalguna",
+    "tithi": "Krishna Chaturdashi",
+    "nakshatra": "Shatabhisha / Shatataraka",
+    "deityCategoryId": 2,
+    "description": "The Great Night of Lord Shiva commemorating his cosmic dance of dissolution and his sacred marriage with Goddess Parvati.",
+    "rituals": "1. Solid night-long wakeful meditation (Jaagran).\n2. Continuous chanting of 'Om Namah Shivaya'.\n3. Four rounds of offering milk and honey over the local Shiva Lingam.\n4. Clean fasting till early next morning sun rises."
+  },
+  {
+    "id": 90003,
+    "title": "Krishna Janmashtami",
+    "dateStr": "2026-08-20",
+    "dayOfWeek": "Thursday",
+    "Month": "Bhadrapada / Shravan",
+    "tithi": "Krishna Ashtami",
+    "nakshatra": "Rohini",
+    "deityCategoryId": 3,
+    "description": "Celebrates the midnight birth event of Bhagavan Krishna, who appeared in the prison cell of Mathura to establish righteousness.",
+    "rituals": "1. Placing the infant Krishna (Ladoo Gopal) in a tiny floral swing.\n2. Midnight bathing of the deity in milk, ghee, and rose water (Abhishekam).\n3. Preparation of a collection of 56 diverse food offerings (Chhappan Bhog).\n4. Fasting and singing enchanting Bhajans."
+  },
+  {
+    "id": 90004,
+    "title": "Durga Puja & Vijayadashami",
+    "dateStr": "2026-10-11",
+    "dayOfWeek": "Sunday",
+    "Month": "Ashvin",
+    "tithi": "Shukla Dashami",
+    "nakshatra": "Shravana",
+    "deityCategoryId": 4,
+    "description": "Commemorates Goddess Durga defeating the buffalo demon King Mahishasura after nine magnificent nights of combat (Navaratri).",
+    "rituals": "1. Chanting Vedic Sanskrit verses from Devi Mahatmyam scriptures.\n2. Dhunuchi traditional dance with incense burner on rhythmic drums.\n3. Distribution of Prasad to neighbors, dressing in clean traditional attire.\n4. Immersion ceremony of Durga clay idols with sweet prayers."
+  },
+  {
+    "id": 90005,
+    "title": "Sri Rama Navami",
+    "dateStr": "2026-04-12",
+    "dayOfWeek": "Sunday",
+    "Month": "Chaitra",
+    "tithi": "Shukla Navami",
+    "nakshatra": "Punarvasu",
+    "deityCategoryId": 5,
+    "description": "The auspicious birth anniversary celebration of Maryada Purushottam Lord Rama, representing pure cosmic truth and dharma.",
+    "rituals": "1. Reading of sacred episodes from Valmiki Ramayana or Ramcharitmanas.\n2. Placing sacred Rama Darbar photos on yellow satin clothes.\n3. Offering Panakam (refreshing cardamom-jaggery juice) to temple visitors.\n4. Performing a quiet Rama Taraka Yajnam fire ritual."
+  },
+  {
+    "id": 90006,
+    "title": "Hanuman Jayanti",
+    "dateStr": "2026-04-18",
+    "dayOfWeek": "Saturday",
+    "Month": "Chaitra",
+    "tithi": "Shukla Purnima",
+    "nakshatra": "Chitra",
+    "deityCategoryId": 6,
+    "description": "Marks the birth anniversary of Bajrangbali Hanuman, who is a lifetime celibate (Brahmachari) and embodiment of deep love.",
+    "rituals": "1. Worshipping Hanuman with offering of bright vermilion (Sindoor).\n2. Gathering a group to sing 11 dynamic recitations of the Hanuman Chalisa.\n3. Offering red-saffron Boondi sweet items to the deity.\n4. Circumambulating the temple (Pradakshina) while reciting Lord Rama chants."
+  },
+  {
+    "id": 90007,
+    "title": "Vasant Panchami",
+    "dateStr": "2026-01-22",
+    "dayOfWeek": "Thursday",
+    "Month": "Magha",
+    "tithi": "Shukla Panchami",
+    "nakshatra": "Uttara Bhadrapada",
+    "deityCategoryId": 7,
+    "description": "Welcoming the beautiful spring season and honoring Goddess Saraswati, the patroness of all wisdom and vocal sciences.",
+    "rituals": "1. Keeping school textbooks, notebooks, writing pens, or musical instruments at the feet of Saraswati.\n2. Wearing bright yellow colored clothes representing the auspicious mustard fields.\n3. Preparing sweet saffron-infused yellow sweet rice (Kesari Baath).\n4. Chanting Saraswati Vandana and beginning new study projects."
+  }
+]

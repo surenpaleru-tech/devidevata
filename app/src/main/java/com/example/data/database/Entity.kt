@@ -33,7 +33,8 @@ data class StotramPuja(
     val title: String,
     val sanskritText: String, // Devanagari Sanskrit verses
     val translation: String, // Detailed English/Hindi translation
-    val benefits: String // Spiritual benefits of chanting
+    val benefits: String, // Spiritual benefits of chanting
+    val language: String = "Sanskrit" // e.g. "Sanskrit", "Hindi", "English", "Telugu"
 )
 
 @Entity(tableName = "temple_infos")

@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "name": "Lord Ganesha",
+    "description": "The remover of obstacles, patron of arts and sciences, and the deva of intellect and wisdom.",
+    "thumbnail": "https://images.unsplash.com/photo-1567591974573-ef3c14bab113?auto=format&fit=crop&q=80&w=400",
+    "defaultColor": "#FFA726"
+  },
+  {
+    "id": 2,
+    "name": "Lord Shiva",
+    "description": "The Destroyer, the Transformer, the Supreme Yogic Adiyogi dwelling in cosmic Kailash.",
+    "thumbnail": "https://images.unsplash.com/photo-1609137144813-7d722de15c7e?auto=format&fit=crop&q=80&w=400",
+    "defaultColor": "#26C6DA"
+  },
+  {
+    "id": 3,
+    "name": "Lord Krishna",
+    "description": "The eighth avatar of Vishnu, counselor of the Bhagavad Gita, deity of compassion, love, and divine play.",
+    "thumbnail": "https://images.unsplash.com/photo-1597113366853-fc192b6149ef?auto=format&fit=crop&q=80&w=400",
+    "defaultColor": "#5C6BC0"
+  },
+  {
+    "id": 4,
+    "name": "Goddess Durga",
+    "description": "The protective mother goddess, vanquisher of Mahishasura, representing absolute feminine cosmic power (Shakti).",
+    "thumbnail": "https://images.unsplash.com/photo-1634818556600-47660ca4a7db?auto=format&fit=crop&q=80&w=400",
+    "defaultColor": "#EF5350"
+  },
+  {
+    "id": 5,
+    "name": "Lord Rama",
+    "description": "The Maryada Purushottam, ideal king, husband, moral ideal, and the seventh avatar of Vishnu.",
+    "thumbnail": "https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?auto=format&fit=crop&q=80&w=400",
+    "defaultColor": "#FFCA28"
+  },
+  {
+    "id": 6,
+    "name": "Lord Hanuman",
+    "description": "The embodiment of devotion (Bhakti), wisdom, cosmic strength, and loyal commander of Lord Rama.",
+    "thumbnail": "https://images.unsplash.com/photo-1615818499660-30bb541611aa?auto=format&fit=crop&q=80&w=400",
+    "defaultColor": "#FF7043"
+  },
+  {
+    "id": 7,
+    "name": "Goddess Saraswati",
+    "description": "The goddess of learning, music, creative arts, speech, and cosmic wisdom, holding the divine Veena.",
+    "thumbnail": "https://images.unsplash.com/photo-1632517594911-30ec8b88dbb1?auto=format&fit=crop&q=80&w=400",
+    "defaultColor": "#E0F2F1"
+  }
+]

@@ -23,6 +23,7 @@ import com.example.data.database.GodImage
 import com.example.data.database.StotramPuja
 import com.example.data.database.TempleInfo
 import com.example.data.repository.DivineRepository
+import android.speech.tts.TextToSpeech
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -83,6 +84,7 @@ class DivineViewModel(
     private var playbackJob: kotlinx.coroutines.Job? = null
 
     fun playStotram(stotram: StotramPuja) {
+        stopTts() // Ensure active spoken TTS is stopped first
         if (_currentlyPlayingStotram.value?.id != stotram.id) {
             _currentlyPlayingStotram.value = stotram
             _playbackElapsedSec.value = 0
@@ -150,6 +152,101 @@ class DivineViewModel(
         _playbackElapsed.value = formatSeconds(targetSec)
     }
 
+    // --- Native Android Text-To-Speech (TTS) Engine ---
+    private var textToSpeech: TextToSpeech? = null
+    private var isTtsInitialized = false
+
+    private val _ttsActiveStotram = MutableStateFlow<StotramPuja?>(null)
+    val ttsActiveStotram: StateFlow<StotramPuja?> = _ttsActiveStotram.asStateFlow()
+
+    private val _isTtsSpeaking = MutableStateFlow(false)
+    val isTtsSpeaking: StateFlow<Boolean> = _isTtsSpeaking.asStateFlow()
+
+    private val _ttsSelectedType = MutableStateFlow("translation") // "sanskrit", "translation", "benefits"
+    val ttsSelectedType: StateFlow<String> = _ttsSelectedType.asStateFlow()
+
+    fun setTtsSelectedType(type: String) {
+        _ttsSelectedType.value = type
+        val current = _ttsActiveStotram.value
+        if (current != null && _isTtsSpeaking.value) {
+            speakStotram(current)
+        }
+    }
+
+    fun speakStotram(stotram: StotramPuja) {
+        pauseStotram() // Pause simulated chant playback to prevent overlap
+        _ttsActiveStotram.value = stotram
+
+        if (textToSpeech == null) {
+            _isTtsSpeaking.value = true
+            textToSpeech = TextToSpeech(getApplication()) { status ->
+                if (status == TextToSpeech.SUCCESS) {
+                    isTtsInitialized = true
+                    performSpeak(stotram)
+                } else {
+                    Log.e("DivineViewModel", "TTS Init Failed: $status")
+                    _isTtsSpeaking.value = false
+                }
+            }
+        } else if (isTtsInitialized) {
+            performSpeak(stotram)
+        }
+    }
+
+    private fun performSpeak(stotram: StotramPuja) {
+        val tts = textToSpeech ?: return
+        val type = _ttsSelectedType.value
+        val textToSpeak = when (type) {
+            "sanskrit" -> {
+                tts.language = Locale("hi", "IN") // Hindi/Sanskrit locale beautifully reads Devanagari script
+                stotram.sanskritText
+            }
+            "benefits" -> {
+                tts.language = Locale.US
+                "Spiritual benefits of chanting ${stotram.title}: ${stotram.benefits}"
+            }
+            else -> {
+                tts.language = Locale.US
+                "English translation of ${stotram.title}: ${stotram.translation}"
+            }
+        }
+
+        tts.setPitch(1.0f)
+        tts.setSpeechRate(0.88f) // Divine and peaceful slow pace
+
+        val utteranceId = "stotram_${stotram.id}_$type"
+        _isTtsSpeaking.value = true
+
+        tts.setOnUtteranceProgressListener(object : android.speech.tts.UtteranceProgressListener() {
+            override fun onStart(utteranceId: String?) {
+                _isTtsSpeaking.value = true
+            }
+
+            override fun onDone(utteranceId: String?) {
+                _isTtsSpeaking.value = false
+            }
+
+            @Deprecated("Deprecated in Java")
+            override fun onError(utteranceId: String?) {
+                _isTtsSpeaking.value = false
+            }
+
+            override fun onError(utteranceId: String?, errorCode: Int) {
+                _isTtsSpeaking.value = false
+                Log.e("DivineViewModel", "TTS Error: $errorCode for $utteranceId")
+            }
+        })
+
+        val params = android.os.Bundle()
+        params.putString(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, utteranceId)
+        tts.speak(textToSpeak, TextToSpeech.QUEUE_FLUSH, params, utteranceId)
+    }
+
+    fun stopTts() {
+        textToSpeech?.stop()
+        _isTtsSpeaking.value = false
+    }
+
     // --- Active UI Management States ---
     private val _activeTab = MutableStateFlow("gallery")
     val activeTab: StateFlow<String> = _activeTab.asStateFlow()
@@ -164,7 +261,9 @@ class DivineViewModel(
     val searchQuery: StateFlow<String> = _searchQuery.asStateFlow()
 
     // --- Server Sync Inputs ---
-    private val _serverUrl = MutableStateFlow(_sharedPrefs.getString("server_url", "https://api.devidevata.com/") ?: "https://api.devidevata.com/")
+    private val _serverUrl = com.example.data.util.Obfuscator.getDecodedUrl().let { defaultVal ->
+        MutableStateFlow(_sharedPrefs.getString("server_url", defaultVal) ?: defaultVal)
+    }
     val serverUrl: StateFlow<String> = _serverUrl.asStateFlow()
 
     private val _syncStatus = MutableStateFlow<String?>(null) // null = idle, "LOADING", "SUCCESS", "ERROR"
@@ -176,6 +275,29 @@ class DivineViewModel(
 
     private val _isOperationLoading = MutableStateFlow(false)
     val isOperationLoading: StateFlow<Boolean> = _isOperationLoading.asStateFlow()
+
+    // --- Language Preference & Content Filter State ---
+    private val _selectedLanguage = MutableStateFlow(_sharedPrefs.getString("selected_language", "Sanskrit") ?: "Sanskrit")
+    val selectedLanguage: StateFlow<String> = _selectedLanguage.asStateFlow()
+
+    fun changeLanguage(language: String) {
+        _selectedLanguage.value = language
+        _sharedPrefs.edit().putString("selected_language", language).apply()
+        
+        // Pull stotrams, aartis, mantras for this language from the user's custom server if they hit language sync
+        viewModelScope.launch {
+            _syncStatus.value = "LOADING"
+            _operationMessage.value = "Synchronizing $language spiritual texts from server..."
+            val success = repository.syncStotramsByLanguage(_serverUrl.value, language)
+            if (success) {
+                _syncStatus.value = "SUCCESS"
+                _operationMessage.value = "Loaded authentic $language texts into offline vault!"
+            } else {
+                _syncStatus.value = "ERROR"
+                _operationMessage.value = "Using offline cached $language library."
+            }
+        }
+    }
 
     // --- Mythology Chat Conversation ---
     private val _chatMessages = MutableStateFlow<List<ChatMessage>>(
@@ -206,10 +328,18 @@ class DivineViewModel(
     val favorites: StateFlow<List<GodImage>> = repository.favoriteImages
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
+    val allStotrams: StateFlow<List<StotramPuja>> = repository.divineDao.getAllStotrams()
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
+
     val activeStotrams: StateFlow<List<StotramPuja>> = _selectedCategory
-        .flatMapLatestFlow { category ->
-            if (category == null) repository.divineDao.getAllStotrams()
-            else repository.getStotramsByGod(category.id)
+        .combine(allStotrams) { category, allHymns ->
+            if (category == null) {
+                allHymns
+            } else {
+                allHymns.filter { it.categoryId == category.id }
+            }
+        }.combine(_selectedLanguage) { list, language ->
+            list.filter { it.language.equals(language, ignoreCase = true) }
         }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyList())
 
     val activeTemples: StateFlow<List<TempleInfo>> = _selectedCategory
@@ -235,6 +365,13 @@ class DivineViewModel(
         viewModelScope.launch {
             repository.checkAndPrepopulateData()
             setupNotificationChannel()
+
+            try {
+                // Clean up any previously inserted 24-hour demo festival
+                repository.divineDao.deleteDemoFestival()
+            } catch (e: Exception) {
+                Log.e("DivineViewModel", "Failed to clean up 24-hour demo festival", e)
+            }
         }
     }
 
@@ -492,5 +629,11 @@ class DivineViewModel(
             val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        textToSpeech?.stop()
+        textToSpeech?.shutdown()
     }
 }

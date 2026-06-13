@@ -45,6 +45,7 @@ import androidx.compose.ui.window.DialogProperties
 import coil.compose.AsyncImage
 import com.example.data.database.GodImage
 import com.example.ui.viewmodel.DivineViewModel
+import com.example.data.util.AdMobManager
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -72,7 +73,6 @@ fun SadhanaScreen(
     }
 
     var selectedFullscreenImage by remember { mutableStateOf<GodImage?>(null) }
-    var isAdminExpanded by remember { mutableStateOf(false) }
 
     Column(
         modifier = modifier
@@ -105,129 +105,9 @@ fun SadhanaScreen(
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            IconButton(
-                onClick = { isAdminExpanded = !isAdminExpanded },
-                modifier = Modifier.testTag("admin_expand_button")
-            ) {
-                Icon(
-                    imageVector = if (isAdminExpanded) Icons.Default.KeyboardArrowUp else Icons.Default.Settings,
-                    contentDescription = "Admin configuration settings toggle",
-                    tint = MaterialTheme.colorScheme.primary
-                )
-            }
         }
 
         Spacer(modifier = Modifier.height(12.dp))
-
-        // ADMIN CONNECTION OVERVIEW (Unlocked Expandable Panel)
-        AnimatedVisibility(
-            visible = isAdminExpanded,
-            enter = fadeIn() + expandVertically(),
-            exit = fadeOut() + shrinkVertically()
-        ) {
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp)
-                    .testTag("admin_setup_panel"),
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
-                ),
-                shape = RoundedCornerShape(16.dp),
-                border = BoxBorder(MaterialTheme.colorScheme.primary.copy(alpha = 0.5f))
-            ) {
-                Column(modifier = Modifier.padding(16.dp)) {
-                    Text(
-                        text = "Cloud Server Settings (Admin)",
-                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold),
-                        color = MaterialTheme.colorScheme.primary
-                    )
-                    Text(
-                        text = "Manage server sync endpoints, view fetched LLM model configurations and API details.",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(bottom = 12.dp)
-                    )
-
-                    OutlinedTextField(
-                        value = serverUrl,
-                        onValueChange = { viewModel.setServerUrl(it) },
-                        label = { Text("Base Cloud API URL") },
-                        placeholder = { Text("https://api.devidevata.com/") },
-                        singleLine = true,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .testTag("server_url_input"),
-                        shape = RoundedCornerShape(10.dp)
-                    )
-
-                    Spacer(modifier = Modifier.height(12.dp))
-
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Column {
-                            Text(
-                                text = "Active Model: $activeModel",
-                                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
-                                color = MaterialTheme.colorScheme.onSurface
-                            )
-                            if (llmOverrideUrl.isNotEmpty()) {
-                                Text(
-                                    text = "Gateway: Custom LLM Server Routing Enabled",
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = Color(0xFF4CAF50)
-                                )
-                            } else {
-                                Text(
-                                    text = "Gateway: Direct Gemini API REST",
-                                    style = MaterialTheme.typography.labelSmall,
-                                    color = MaterialTheme.colorScheme.primary
-                                )
-                            }
-                        }
-
-                        Button(
-                            onClick = { viewModel.syncWithCloudServer() },
-                            modifier = Modifier.testTag("force_sync_button"),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = MaterialTheme.colorScheme.primary
-                            )
-                        ) {
-                            if (syncStatus == "LOADING") {
-                                CircularProgressIndicator(
-                                    modifier = Modifier.size(16.dp),
-                                    strokeWidth = 2.dp,
-                                    color = MaterialTheme.colorScheme.onPrimary
-                                )
-                            } else {
-                                Icon(Icons.Default.Refresh, contentDescription = "Sync", modifier = Modifier.size(16.dp))
-                                Spacer(modifier = Modifier.width(4.dp))
-                                Text("Sync Now", style = MaterialTheme.typography.labelMedium)
-                            }
-                        }
-                    }
-
-                    operationMessage?.let { msg ->
-                        Spacer(modifier = Modifier.height(12.dp))
-                        Text(
-                            text = msg,
-                            style = MaterialTheme.typography.bodySmall,
-                            color = if (syncStatus == "ERROR") MaterialTheme.colorScheme.error else Color(0xFF4CAF50),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(
-                                    color = (if (syncStatus == "ERROR") MaterialTheme.colorScheme.errorContainer else MaterialTheme.colorScheme.secondaryContainer).copy(alpha = 0.5f),
-                                    shape = RoundedCornerShape(8.dp)
-                                )
-                                .padding(12.dp)
-                        )
-                    }
-                }
-            }
-        }
 
         // SECTION 1: INTERACTIVE JAPA MALA BEAD COUNTER
         JapaMalaCounter()
@@ -402,6 +282,10 @@ fun SadhanaScreen(
                 }
             }
         }
+
+        // Inline Full Banner / Rectangle Advertisement inside scrollable area
+        FullBannerAdView()
+        Spacer(modifier = Modifier.height(24.dp))
     }
 
     // Full-screen Premium Wallpaper Dialog
@@ -644,6 +528,13 @@ fun JapaMalaCounter() {
                                 count = 0
                                 totalMalas += 1
                                 showLotusCelebration = true
+
+                                // Auspicious rate-limited Interstitial Ad triggers on completing a holy Mala
+                                val activity = context as? android.app.Activity
+                                if (activity != null) {
+                                    AdMobManager.showInterstitialAtCriticalSection(activity)
+                                }
+
                                 // Heavy completed Mala vibration flow
                                 try {
                                     val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator

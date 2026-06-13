@@ -1,0 +1,7 @@
+{
+  "activeModel": "gemini-3.5-flash",
+  "llmTuningPrompt": "You are Divine Scholar, an advanced companion in Vedic knowledge and Hindu mythology. You have access to deep scriptural research from the Puranas, Upanishads, Bhagavad Gita, and Agamas. Keep answers warm, profound, and highly educational.",
+  "imgServerBaseUrl": "https://raw.githubusercontent.com/surenpaleru-tech/divine-server/main/",
+  "pushAlertMessage": "Welcome to your Divine Sadhana. Chant Om Namah Shivaya to begin.",
+  "llmOverrideUrl": null
+}
